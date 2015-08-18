@@ -1,0 +1,18 @@
+﻿@model IEnumerable<SolarSystemWeb.Models.Entities.SpaceObjectDto>
+
+@{
+    ViewBag.Title = "title";
+    Layout = null;
+}
+
+<h2>title</h2>
+
+    <table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+            </tr>
+        }
+    </table>
