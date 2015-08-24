@@ -10,13 +10,20 @@ namespace SolarSystemWeb.Models.Repositories
         {
             return new SpaceObjectType
             {
-               
+               Id = model.Id,
+               Name = model.Name,
+               Plural = model.Plural
             };
         }
 
         protected override SpaceObjectTypeDto FromDataToModelConverter(SpaceObjectType data)
         {
-            return new SpaceObjectTypeDto();
+            return new SpaceObjectTypeDto
+            {
+                Id = data.Id,
+                Name = data.Name,
+                Plural = data.Plural
+            };
         }
     }
 }

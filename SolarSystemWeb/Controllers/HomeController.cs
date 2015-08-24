@@ -1,24 +1,38 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using DataLayer;
 using DataLayer.Repositories;
 using SolarSystemWeb.Models.Entities;
-using SolarSystemWeb.Models.Repositories;
 
 namespace SolarSystemWeb.Controllers
 {
     public class HomeController : BaseController<SpaceObjectDto, SpaceObject>
     {
-        public HomeController(ICrudRepository<SpaceObjectDto, SpaceObject> repository) 
-            : base(repository) { }
+        public HomeController(ICrudRepository<SpaceObjectDto, SpaceObject> repository,
+                              ICrudRepository<SpaceObjectTypeDto, SpaceObjectType> typesRepository)
+            : base(repository)
+        {
+            TypesRepository = typesRepository;
+        }
+
+        protected readonly ICrudRepository<SpaceObjectTypeDto, SpaceObjectType> TypesRepository;
 
         public ActionResult Index()
         {
-            using (var pr = new SpaceObjectRepository())
-            {
-                var model = pr.Get(x => x.SpaceObjectTypeId == 2);
-                return View(model);
-            }            
+            var model = Repository.Get(x => x.SpaceObjectTypeId == 2);
+            return View(model);
         }
 
+        public ActionResult SpaceObjectTypes()
+        {            
+            var model = TypesRepository.GetAll().Where(x => !x.IsSun);
+            return PartialView(model);            
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            TypesRepository.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }

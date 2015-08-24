@@ -5,7 +5,142 @@
     Layout = null;
 }
 
-<h2>title</h2>
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+
+<script>
+    var canvas;
+    var elements = [];
+
+    function generate(starsCount, opacity) {
+        var sizes = ['micro', 'mini', 'medium', 'big', 'max'];
+
+        for (var i = 0; i < starsCount; i++) {
+            var x = randomInt(2, canvas.offsetWidth - 2),
+                y = randomInt(2, canvas.offsetHeight - 2),
+                size = sizes[randomInt(0, sizes.length - 1)];
+
+            elements.push(star(x, y, size, opacity));
+        }
+    }
+
+    function spark(numberOfStarsToAnimate) {
+
+        for (var i = 0; i < numberOfStarsToAnimate; i++) {
+            var id = randomInt(0, elements.length - 1),
+                obj = elements[id],
+                newAlpha = obj.alpha;
+            do {
+                newAlpha = randomFloatAround(obj.alpha);
+            } while (newAlpha < .3 || newAlpha > 1)
+
+            elements[id] = star(obj.x, obj.y, obj.size, newAlpha);
+        }
+
+        requestAnimFrame(function () {
+            spark(numberOfStarsToAnimate);
+        });
+    }
+
+    function star(x, y, size, alpha) {
+        var radius = 0;
+        switch (size) {
+        case 'micro':
+            radius = 0.2;
+            break;
+        case 'mini':
+            radius = 0.4;
+            break;
+        case 'medium':
+            radius = 0.6;
+            break;
+        case 'big':
+            radius = 0.8;
+            break;
+        case 'max':
+            radius = 1.0;
+            break;
+        }
+
+        var context = canvas.getContext('2d');
+
+        var gradient = context.createRadialGradient(x, y, 0, x + radius, y + radius, radius * 2);
+        gradient.addColorStop(0, 'rgba(' + randomInt(0, 255) + ',' + randomInt(0, 255) + ',' + randomInt(0, 255) + ',' + alpha + ')');
+        gradient.addColorStop(1, 'rgba(' + randomInt(0, 255) + ',' + randomInt(0, 255) + ',' + randomInt(0, 255) + ',' + alpha + ')');
+
+        /* clear background pixels */
+        context.beginPath();
+        context.clearRect(x - radius - 1, y - radius - 1, radius * 2 + 2, radius * 2 + 2);
+        context.closePath();
+
+        /* draw star */
+        context.beginPath();
+        context.arc(x, y, radius, 0, 2 * Math.PI);
+        context.fillStyle = gradient;
+        context.fill();
+
+        return {
+            'x': x,
+            'y': y,
+            'size': size,
+            'alpha': alpha
+        };
+    }
+
+    function randomInt(a, b) {
+        return Math.floor(Math.random() * (b - a + 1) + a);
+    }
+
+    function randomFloatAround(num) {
+        var plusminus = randomInt(0, 1000) % 2,
+            val = num;
+        if (plusminus)
+            val += 0.1;
+        else
+            val -= 0.1;
+        return parseFloat(val.toFixed(1));
+    }
+
+    $().ready(function() {
+        canvas = document.getElementById("star_field");
+
+        window.requestAnimFrame = (function() {
+            return window.requestAnimationFrame || window.webkitRequestAnimationFrame
+                || window.mozRequestAnimationFrame || window.oRequestAnimationFrame
+                || window.msRequestAnimationFrame || function(callback) {
+                    window.setTimeout(callback, 1000 / 30);
+                };
+        })();
+
+        generate(3000, .8);
+        spark(30);        
+    });
+</script>
+
+<style type="text/css">
+    body {
+	    margin: 0;
+    }
+
+    #star_field {
+        background: #0C0912;  
+	    margin: 25px auto;
+	    border: 1px solid rgba(255, 255, 255, .1);
+    }
+
+    #mainArea {
+        margin-left: 30px;
+    }
+</style>
+
+<div id="mainArea">
+    <div>
+        @{ Html.RenderAction("SpaceObjectTypes"); }
+    </div>
+    <br/>
+    <canvas id="star_field" width="800" height="600"></canvas>
+</div>
+
+    <br/>
 
     <table>
         @foreach (var item in Model)
