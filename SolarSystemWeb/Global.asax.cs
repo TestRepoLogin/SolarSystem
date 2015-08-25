@@ -28,8 +28,8 @@ namespace SolarSystemWeb
 
         protected void RegisterTypes()
         {
-            _container.RegisterType<ICrudRepository<SpaceObjectDto, SpaceObject>, SpaceObjectRepository> (new ContainerControlledLifetimeManager());
-            _container.RegisterType<ICrudRepository<SpaceObjectTypeDto, SpaceObjectType>, SpaceObjectTypeRepository> (new ContainerControlledLifetimeManager());            
+            _container.RegisterType<ICrudRepository<SpaceObjectDto, SpaceObject>, SpaceObjectRepository> ();
+            _container.RegisterType<ICrudRepository<SpaceObjectTypeDto, SpaceObjectType>, SpaceObjectTypeRepository> ();     
         }
     }
 }
