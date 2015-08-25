@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using System.Web.Optimization;
 using System.Web.Routing;
 using DataLayer;
 using DataLayer.Repositories;
@@ -18,7 +19,8 @@ namespace SolarSystemWeb
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+           
             RegisterTypes();            
             ControllerBuilder.Current.SetControllerFactory(new CustomControllerFactory(_container));
         }
