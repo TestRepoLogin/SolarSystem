@@ -20,7 +20,8 @@ namespace SolarSystemWeb
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-           
+            BundleTable.EnableOptimizations = ApplicationSettings.Instance.OptimizeScriptsAndStyles;
+
             RegisterTypes();            
             ControllerBuilder.Current.SetControllerFactory(new CustomControllerFactory(_container));
         }

@@ -143,6 +143,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Application\ApplicationSettings.cs" />
     <Compile Include="Models\Application\CustomControllerFactory.cs" />
     <Compile Include="Models\Entities\SpaceObjectTypeDto.cs" />
     <Compile Include="Models\Repositories\SpaceObjectTypeRepository.cs" />
