@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using DataLayer;
 using DataLayer.Repositories;
@@ -17,12 +19,12 @@ namespace SolarSystemWeb.Controllers
 
         protected readonly ICrudRepository<SpaceObjectTypeDto, SpaceObjectType> TypesRepository;
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var model = Repository.Get(x => x.SpaceObjectTypeId == 2);
+            var model = await Repository.GetAsync(x => x.SpaceObjectTypeId == 2);
             return View(model);
         }
-
+        
         public ActionResult SpaceObjectTypes()
         {            
             var model = TypesRepository.GetAll().Where(x => !x.IsSun);
