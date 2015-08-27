@@ -33,5 +33,7 @@ namespace DataLayer.Repositories
         void Delete(int id);
 
         Task DeleteAsync(int id);
+
+        int Count { get; }    
     }
 }

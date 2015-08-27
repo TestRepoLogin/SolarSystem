@@ -8,28 +8,32 @@ namespace SolarSystemWeb.Models.Repositories
     {
         protected override SpaceObject FromModelToDataConverter(SpaceObjectDto model)
         {
-            return new SpaceObject
-            {
-                 Id = model.Id,
-                 Name = model.Name,
-                 Description = model.Description,
-                 Mass = model.Mass,
-                 Radius = model.Radius,
-                 Distance = model.Distance
-            };
+            return model != null ?
+                new SpaceObject
+                {
+                     Id = model.Id,
+                     Name = model.Name,
+                     Description = model.Description,
+                     Mass = model.Mass,
+                     Radius = model.Radius,
+                     Distance = model.Distance,
+                     SpaceObjectTypeId = model.SpaceObjectTypeId
+                } : null;
         }
 
         protected override SpaceObjectDto FromDataToModelConverter(SpaceObject data)
-        {
-            return new SpaceObjectDto
-            {
-                Id = data.Id,
-                Name = data.Name,
-                Description = data.Description,
-                Mass = data.Mass,
-                Radius = data.Radius,
-                Distance = data.Distance
-            };
+        {            
+            return data != null ?  
+                new SpaceObjectDto
+                {
+                    Id = data.Id,
+                    Name = data.Name,
+                    Description = data.Description,
+                    Mass = data.Mass,
+                    Radius = data.Radius,
+                    Distance = data.Distance,
+                    SpaceObjectTypeId = data.SpaceObjectTypeId
+                } : null;
         }
     }
 }

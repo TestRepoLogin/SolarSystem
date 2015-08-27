@@ -8,22 +8,24 @@ namespace SolarSystemWeb.Models.Repositories
     {
         protected override SpaceObjectType FromModelToDataConverter(SpaceObjectTypeDto model)
         {
-            return new SpaceObjectType
-            {
-               Id = model.Id,
-               Name = model.Name,
-               Plural = model.Plural
-            };
+            return model != null ? 
+                new SpaceObjectType
+                {
+                   Id = model.Id,
+                   Name = model.Name,
+                   Plural = model.Plural
+                } : null;
         }
 
         protected override SpaceObjectTypeDto FromDataToModelConverter(SpaceObjectType data)
         {
-            return new SpaceObjectTypeDto
-            {
-                Id = data.Id,
-                Name = data.Name,
-                Plural = data.Plural
-            };
+            return data != null ?  
+                new SpaceObjectTypeDto
+                {
+                    Id = data.Id,
+                    Name = data.Name,
+                    Plural = data.Plural
+                } : null;
         }
     }
 }

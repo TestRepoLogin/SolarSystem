@@ -36,13 +36,13 @@ namespace DataLayer.Repositories
 
         public TModel Get(int id)
         {
-            var res = Context.Set<TData>().Find();
+            var res = Context.Set<TData>().Find(id);
             return FromDataToModelConverter(res);
         }
 
         public async Task<TModel> GetAsync(int id)
         {
-            var res = await Context.Set<TData>().FindAsync();
+            var res = await Context.Set<TData>().FindAsync(id);
             return FromDataToModelConverter(res);
         }
 
@@ -50,7 +50,7 @@ namespace DataLayer.Repositories
         {
             var toAdd = FromModelToDataConverter(item);
             Context.Set<TData>().Add(toAdd);
-            Context.SaveChanges();
+            Context.SaveChanges();            
         }
 
         public async Task AddAsync(TModel item)
@@ -91,6 +91,8 @@ namespace DataLayer.Repositories
             Context.Set<TData>().Remove(toDel);
             await Context.SaveChangesAsync();
         }
+
+        public int Count => Context.Set<TData>().Count();
 
         public void Dispose()
         {
