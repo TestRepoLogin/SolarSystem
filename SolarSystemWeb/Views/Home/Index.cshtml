@@ -11,23 +11,8 @@
 
 @Styles.Render("~/Styles/starry")
 
+@{ Html.RenderAction("TopPanel"); }
 
 <div id="mainArea">
-    <div>
-        @{ Html.RenderAction("SpaceObjectTypes"); }
-    </div>
-    <br/>
     <canvas id="star_field" width="800" height="600"></canvas>
 </div>
-
-<br/>
-
-<table>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.Id</td>
-            <td>@item.Name</td>
-        </tr>
-    }
-</table>

@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using DataLayer;
 using DataLayer.Repositories;
 using SolarSystemWeb.Models.Entities;
+using SolarSystemWeb.Models.ViewModels;
 
 namespace SolarSystemWeb.Controllers
 {
@@ -25,10 +26,17 @@ namespace SolarSystemWeb.Controllers
             return View(model);
         }
         
-        public ActionResult SpaceObjectTypes()
+        public ActionResult TopPanel()
         {            
             var model = TypesRepository.GetAll().Where(x => !x.IsSun);
             return PartialView(model);            
+        }
+
+        public ActionResult DropDown(SpaceObjectTypeDto item)
+        {
+            var spaceObjects = Repository.Get(x => x.SpaceObjectTypeId == item.Id);
+            var model = new DropDownViewModel(item.Plural, spaceObjects);
+            return PartialView(model);
         }
 
         protected override void Dispose(bool disposing)
