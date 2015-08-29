@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
 using DataLayer.Entities;
+using SolarSystemWeb.Models.Entities;
 
 namespace SolarSystemWeb.Models.ViewModels
 {
     public class DropDownViewModel
     {
-        public DropDownViewModel(string title, IEnumerable<SimpleModel> items)
+        public DropDownViewModel(SpaceObjectTypeDto type, IEnumerable<SimpleModel> items)
         {
-            Title = title;
+            Type = type;
             Items = items;
         }
 
         public IEnumerable<SimpleModel> Items { get; private set; }
 
-        public string Title { get; private set; }
+        public SpaceObjectTypeDto Type { get; private set; }
     }
 }

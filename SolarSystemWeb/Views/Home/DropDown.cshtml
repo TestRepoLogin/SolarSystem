@@ -1,15 +1,24 @@
 ﻿@model SolarSystemWeb.Models.ViewModels.DropDownViewModel
 
-<li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-        @Model.Title
-        <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu" role="menu">
-        @foreach (var item in Model.Items)
-        {
-            <li><a href="#">@item.Name</a></li>
-        }
-    </ul>
+<script type="text/javascript">
+    $(document).ready(
+    function () {
+        $('#m-@Model.Type.Id').multiselect({
+            includeSelectAllOption: true,
+            selectAllText: 'Выделить все',
+            selectAllValue: "null",
+            nSelectedText: "Выделено: ",
+            numberDisplayed: 1,
+            nonSelectedText: '@Model.Type.Plural',                   
+            
+        });
+        $('.multiselect-container li a').css('padding-left', '30px');
+    });
+</script>
 
-</li>
+<select class='multiselect' id="m-@Model.Type.Id" multiple="multiple">
+    @foreach (var item in Model.Items)
+    {
+        <option value="@item.Id">@item.Name</option>
+    }
+</select>

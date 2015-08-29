@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using DataLayer;
@@ -35,7 +34,7 @@ namespace SolarSystemWeb.Controllers
         public ActionResult DropDown(SpaceObjectTypeDto item)
         {
             var spaceObjects = Repository.Get(x => x.SpaceObjectTypeId == item.Id);
-            var model = new DropDownViewModel(item.Plural, spaceObjects);
+            var model = new DropDownViewModel(item, spaceObjects);
             return PartialView(model);
         }
 
