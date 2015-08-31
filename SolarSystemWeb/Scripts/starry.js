@@ -1,4 +1,4 @@
-﻿function Starry(canvas) {
+﻿function Starry(canvas, count, sparkCount) {
 
     var elements = [];
     var sizes = { micro: 0.2, mini: 0.4, medium: 0.6, big: 0.8, max: 1.0 };
@@ -78,6 +78,8 @@
         });
     }
 
+    generate(count, opacity);
+
     var requestAnimFrame = (function () {
         return window.requestAnimationFrame || window.webkitRequestAnimationFrame
             || window.mozRequestAnimationFrame || window.oRequestAnimationFrame
@@ -86,8 +88,7 @@
             };
     })();
 
-    this.drawStars = function (count, sparkCount) {
-        generate(count, opacity);
+    this.drawStars = function () {        
         spark(sparkCount);
     }
 }

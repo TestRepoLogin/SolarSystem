@@ -21,7 +21,7 @@ namespace SolarSystemWeb.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var model = await Repository.GetAsync(x => x.SpaceObjectTypeId == 2);
+            var model = await Repository.GetAsync(x => x.SpaceObjectTypeId > 1 && x.SpaceObjectTypeId != 5);
             return View(model);
         }
         
