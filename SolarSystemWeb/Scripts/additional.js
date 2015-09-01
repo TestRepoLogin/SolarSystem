@@ -16,7 +16,8 @@ function Base() {
 
 Base.prototype = {
     setProperty: function (object, add) {
-        if (add !== true) add = false;
+        if (add !== true)
+            add = false;
         for (var key in object) {
             if (object.hasOwnProperty(key)) {
                 if (typeof this[key] !== 'undefined' || add) {

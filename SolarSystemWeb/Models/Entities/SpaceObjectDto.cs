@@ -13,7 +13,9 @@ namespace SolarSystemWeb.Models.Entities
         public double Distance { get; set; }
 
         public double Radius { get; set; }
-        
-        //public virtual SpaceObjectType SpaceObjectType { get; set; }
+
+        public int OwnerId { get; set; }
+
+        public bool IsSun => OwnerId == Id;
     }
 }

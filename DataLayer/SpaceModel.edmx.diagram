@@ -8,6 +8,7 @@
         <EntityTypeShape EntityType="SolarSystemModel.SpaceObject" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="SolarSystemModel.SpaceObjectType" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
         <AssociationConnector Association="SolarSystemModel.FK__SpaceObje__Space__164452B1" ManuallyRouted="false" />
+        <AssociationConnector Association="SolarSystemModel.FK__SpaceObje__Owner__35BCFE0A" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -8,7 +8,7 @@ var App = function (canvas, planetsInfo) {
     this.width = canvas.width;
     this.height = canvas.height;
     this._resources = {};
-        
+         
     this.init(planetsInfo);
 };
 
@@ -39,7 +39,6 @@ App.prototype = {
                     self.imagesLoaded++;
                     if (self.imagesAdded == self.imagesLoaded) {
                         self.app.render(new Date());
-                        console.log('init complete over ' + (new Date() - initRunTime) + 'ms');
                     }
                 }                
                 image.src = url;
@@ -51,26 +50,35 @@ App.prototype = {
         im.add('/Content/images/sun.png', 'sun');
         im.add('/Content/images/planets.png', 'planets');
 
-        var orbit = new Orbit(globalCenter.clone(), 0).setProperty({ ctx: this.ctx, mouse: this.mouse }, true);
-        var planet = new Planet(orbit, 35, 1).setProperty({
-            tile: new Tile(this.ctx, this._resources['sun'], 0, 0, 100, 100),
-            name: 'Sun',
-            ctx: this.ctx
-        }, true);
-        this.planets.push(planet);
-        
         var time = 40;             
 
         for (var i = 0; i < planetsInfo.length; ++i) {
-            orbit = new Orbit(globalCenter.clone(), 40 + planetsInfo[i].distance * 27).setProperty({ ctx: this.ctx, mouse: this.mouse }, true);
-            planet = new Planet(orbit, 13, time).setProperty({
-                tile: new Tile(this.ctx, this._resources['planets'], i * 26, 0, 26, 26),
+            
+            var distance = planetsInfo[i].isSun ? 0 : 40 + planetsInfo[i].distance * 27;
+            var tile = planetsInfo[i].isSun ? new Tile(this.ctx, this._resources['sun'], 0, 0, 100, 100) :
+                                              new Tile(this.ctx, this._resources['planets'], i * 26, 0, 26, 26);
+
+            var orbit = new Orbit(globalCenter.clone(), distance).setProperty({ ctx: this.ctx, mouse: this.mouse }, true);
+            var planet = new Planet(orbit, 13, time).setProperty({
+                tile: tile,
+                id: planetsInfo[i].id,
                 name: planetsInfo[i].name,
+                needShow: planetsInfo[i].needShow,
                 ctx: this.ctx
             }, true);
             this.planets.push(planet);
+            
             time += 20;
-        }        
+        }
+    },
+    
+    setPlanetVisibility: function(id, flag) {
+        for (var i = 0; i < this.planets.length; i++) {
+            if (this.planets[i].id == id) {
+                this.planets[i].setProperty({ needShow: flag }, true);
+                break;
+            }
+        }
     },
 
     render: function (lastTime) {        
@@ -86,6 +94,9 @@ App.prototype = {
 
         var showInfo = -1;
         for (var i = 0, il = planets.length; i < il; ++i) {
+            if (!planets[i].needShow)
+                continue;
+
             planets[i].orbit.draw();
             planets[i].render(curTime - lastTime);
             if (Math.abs(planets[i].pos.x - mouse.pos.x) < planets[i].radius

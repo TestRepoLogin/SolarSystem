@@ -20,21 +20,25 @@
 <script src="/Scripts/mouse.js"></script>
 
 <script>
+    var Solar = null;
+
     $().ready(
         function() {
-
             var spaceObjects = [];
-
-            @foreach (var spaceObject in Model)
-            {
-                @:var obj = { name: '@spaceObject.Name', distance: @spaceObject.Distance.ToString("F").Replace(',', '.') };
+            
+            @foreach (var item in Model)
+            {                
+                @:var obj = { id: @item.Id, name: '@item.Name', distance: @item.Distance.ToString("F").Replace(',', '.'), isSun: @item.IsSun.ToString().ToLower(), needShow: true };
                 @:spaceObjects.push(obj);
+                @:$('select.multiselect').find("option[value=" + @item.Id + "]").prop("selected", "selected");
             }
 
-            var Solar = new App(document.getElementById("system_canvas"), spaceObjects);
+            $('select.multuselect').multiselect('refresh');
+
+            Solar = new App(document.getElementById("system_canvas"), spaceObjects);
 
         });
-    
+
 </script>
 
 @{ Html.RenderAction("TopPanel"); }
