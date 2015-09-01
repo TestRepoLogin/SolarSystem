@@ -7,17 +7,10 @@
 }
 
 @Scripts.Render("~/bundles/starry")
+@Scripts.Render("~/bundles/solar")
 @Scripts.Render("~/bundles/mainPage")
 
 @Styles.Render("~/Styles/starry")
-
-<script src="/Scripts/system.js"></script>
-<script src="/Scripts/additional.js"></script>
-<script src="/Scripts/point.js"></script>
-<script src="/Scripts/orbit.js"></script>
-<script src="/Scripts/planet.js"></script>
-<script src="/Scripts/tile.js"></script>
-<script src="/Scripts/mouse.js"></script>
 
 <script>
     var Solar = null;
@@ -36,7 +29,6 @@
             $('select.multuselect').multiselect('refresh');
 
             Solar = new App(document.getElementById("system_canvas"), spaceObjects);
-
         });
 
 </script>

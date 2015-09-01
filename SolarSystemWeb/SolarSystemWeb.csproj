@@ -165,20 +165,15 @@
     <Content Include="Content\images\planets.png" />
     <Content Include="Content\images\sun.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Scripts\additional.js" />
-    <Content Include="Scripts\bootstrap-multiselect.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\mouse.js" />
-    <Content Include="Scripts\orbit.js" />
-    <Content Include="Scripts\planet.js" />
-    <Content Include="Scripts\point.js" />
-    <Content Include="Scripts\system.js" />
+    <Content Include="Scripts\libs\bootstrap-multiselect.js" />
+    <Content Include="Scripts\libs\bootstrap.js" />
+    <Content Include="Scripts\libs\bootstrap.min.js" />
+    <Content Include="Scripts\solar\classes.js" />
+    <Content Include="Scripts\solar\system.js" />
     <Content Include="Scripts\main_page.js" />
     <Content Include="Scripts\starry.js" />
-    <Content Include="Scripts\tile.js" />
-    <Content Include="Styles\starry.css" />
-    <Content Include="Styles\main.css" />
+    <Content Include="Content\starry.css" />
+    <Content Include="Content\main.css" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -188,9 +183,9 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootswatch\cosmo\Thumbs.db" />
     <Content Include="Less\bootstrap-multiselect.less" />
-    <None Include="Scripts\jquery-2.1.4.intellisense.js" />
-    <Content Include="Scripts\jquery-2.1.4.js" />
-    <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <None Include="Scripts\libs\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\libs\jquery-2.1.4.js" />
+    <Content Include="Scripts\libs\jquery-2.1.4.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -215,7 +210,7 @@
     <Content Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\TopPanel.cshtml" />
-    <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <Content Include="Scripts\libs\jquery-2.1.4.min.map" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\DropDown.cshtml" />
     <None Include="Web.Debug.config">
