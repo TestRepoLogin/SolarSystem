@@ -19,6 +19,8 @@ namespace SolarSystemWeb.Models.Entities
 
         public int OwnerId { get; set; }
 
+        public string WikiLink { get; set; }
+
         public bool IsSun => OwnerId == Id;
     }
 }

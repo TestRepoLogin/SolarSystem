@@ -17,6 +17,7 @@
           <Property Name="OwnerId" Type="int" Nullable="false" />
           <Property Name="Mass" Type="float" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="WikiLink" Type="nvarchar" MaxLength="400" Nullable="false" />
         </EntityType>
         <EntityType Name="SpaceObjectType">
           <Key>
@@ -93,6 +94,7 @@
           <NavigationProperty Name="SpaceObject1" Relationship="SolarSystemModel.FK__SpaceObje__Owner__35BCFE0A" FromRole="SpaceObject" ToRole="SpaceObject1" />
           <NavigationProperty Name="SpaceObject2" Relationship="SolarSystemModel.FK__SpaceObje__Owner__35BCFE0A" FromRole="SpaceObject1" ToRole="SpaceObject" />
           <NavigationProperty Name="SpaceObjectType" Relationship="SolarSystemModel.FK__SpaceObje__Space__164452B1" FromRole="SpaceObject" ToRole="SpaceObjectType" />
+          <Property Name="WikiLink" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SpaceObjectType">
           <Key>
@@ -136,6 +138,7 @@
           <EntitySetMapping Name="SpaceObject">
             <EntityTypeMapping TypeName="SolarSystemModel.SpaceObject">
               <MappingFragment StoreEntitySet="SpaceObject">
+                <ScalarProperty Name="WikiLink" ColumnName="WikiLink" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Mass" ColumnName="Mass" />
                 <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
