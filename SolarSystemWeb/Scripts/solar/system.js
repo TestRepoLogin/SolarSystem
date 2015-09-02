@@ -1,9 +1,10 @@
 ﻿"use strict";
-var App = function (canvas, planetsInfo) {
+var App = function (canvas, planetsInfo, infoCallback) {
     this.planets = [];
     this.canvas = canvas;
     this.ctx;
     this.mouse;
+    this.infoCallback = infoCallback;
 
     this.width = canvas.width;
     this.height = canvas.height;
@@ -15,7 +16,6 @@ var App = function (canvas, planetsInfo) {
 App.prototype = {
     
     init: function (planetsInfo) {
-        var initRunTime = new Date();
         
         if (!this.canvas.getContext('2d')) {
             document.body.innerHTML = '<center>No support 2d context.</center>';
@@ -104,6 +104,7 @@ App.prototype = {
                 showInfo = i;
                 if (mouse.pressed) {
                     planets[i].animate = planets[i].animate ? false : true;
+                    infoCallback(planets[showInfo].id);
                 }
             }
         }
@@ -111,7 +112,7 @@ App.prototype = {
         if (showInfo > -1) {
             planets[showInfo].showInfo();
             planets[showInfo].drawBorder();
-            document.body.style.cursor = 'pointer';
+            document.body.style.cursor = 'pointer';            
         } else {
             document.body.style.cursor = 'default';
         }

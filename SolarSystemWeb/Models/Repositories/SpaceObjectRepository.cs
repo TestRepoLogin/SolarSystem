@@ -17,7 +17,7 @@ namespace SolarSystemWeb.Models.Repositories
                      Mass = model.Mass,
                      Radius = model.Radius,
                      Distance = model.Distance,
-                     SpaceObjectTypeId = model.SpaceObjectTypeId,
+                     SpaceObjectTypeId = model.TypeId,
                      OwnerId = model.OwnerId
                 } : null;
         }
@@ -33,7 +33,8 @@ namespace SolarSystemWeb.Models.Repositories
                     Mass = data.Mass,
                     Radius = data.Radius,
                     Distance = data.Distance,
-                    SpaceObjectTypeId = data.SpaceObjectTypeId,
+                    TypeId = data.SpaceObjectTypeId,
+                    TypeName = data.SpaceObjectType.Name,
                     OwnerId = data.OwnerId
                 } : null;
         }

@@ -12,11 +12,11 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SpaceObjectTypeId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="1000" Nullable="false" />
-          <Property Name="Mass" Type="float" Nullable="false" />
           <Property Name="Distance" Type="float" Nullable="false" />
           <Property Name="Radius" Type="float" Nullable="false" />
           <Property Name="OwnerId" Type="int" Nullable="false" />
+          <Property Name="Mass" Type="float" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="4000" Nullable="false" />
         </EntityType>
         <EntityType Name="SpaceObjectType">
           <Key>
@@ -66,55 +66,43 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SolarSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SolarSystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="SpaceObject" EntityType="SolarSystemModel.SpaceObject" />
+          <EntitySet Name="SpaceObjectType" EntityType="SolarSystemModel.SpaceObjectType" />
+          <AssociationSet Name="FK__SpaceObje__Owner__35BCFE0A" Association="SolarSystemModel.FK__SpaceObje__Owner__35BCFE0A">
+            <End Role="SpaceObject" EntitySet="SpaceObject" />
+            <End Role="SpaceObject1" EntitySet="SpaceObject" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SpaceObje__Space__164452B1" Association="SolarSystemModel.FK__SpaceObje__Space__164452B1">
+            <End Role="SpaceObjectType" EntitySet="SpaceObjectType" />
+            <End Role="SpaceObject" EntitySet="SpaceObject" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="SpaceObject">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SpaceObjectTypeId" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Mass" Type="Double" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Distance" Type="Double" Nullable="false" />
           <Property Name="Radius" Type="Double" Nullable="false" />
-          <NavigationProperty Name="SpaceObjectType" Relationship="Self.FK__SpaceObje__Space__164452B1" FromRole="SpaceObject" ToRole="SpaceObjectType" />
           <Property Name="OwnerId" Type="Int32" Nullable="false" />
+          <Property Name="Mass" Type="Double" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SpaceObject1" Relationship="SolarSystemModel.FK__SpaceObje__Owner__35BCFE0A" FromRole="SpaceObject" ToRole="SpaceObject1" />
           <NavigationProperty Name="SpaceObject2" Relationship="SolarSystemModel.FK__SpaceObje__Owner__35BCFE0A" FromRole="SpaceObject1" ToRole="SpaceObject" />
+          <NavigationProperty Name="SpaceObjectType" Relationship="SolarSystemModel.FK__SpaceObje__Space__164452B1" FromRole="SpaceObject" ToRole="SpaceObjectType" />
         </EntityType>
         <EntityType Name="SpaceObjectType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="SpaceObject" Relationship="Self.FK__SpaceObje__Space__164452B1" FromRole="SpaceObjectType" ToRole="SpaceObject" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="Plural" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SpaceObject" Relationship="SolarSystemModel.FK__SpaceObje__Space__164452B1" FromRole="SpaceObjectType" ToRole="SpaceObject" />
         </EntityType>
-        <Association Name="FK__SpaceObje__Space__164452B1">
-          <End Role="SpaceObjectType" Type="Self.SpaceObjectType" Multiplicity="1" />
-          <End Role="SpaceObject" Type="Self.SpaceObject" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SpaceObjectType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SpaceObject">
-              <PropertyRef Name="SpaceObjectTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="SolarSystemEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="SpaceObject" EntityType="Self.SpaceObject" />
-          <EntitySet Name="SpaceObjectType" EntityType="Self.SpaceObjectType" />
-          <AssociationSet Name="FK__SpaceObje__Space__164452B1" Association="Self.FK__SpaceObje__Space__164452B1">
-            <End Role="SpaceObjectType" EntitySet="SpaceObjectType" />
-            <End Role="SpaceObject" EntitySet="SpaceObject" />
-          </AssociationSet>
-          <AssociationSet Name="FK__SpaceObje__Owner__35BCFE0A" Association="SolarSystemModel.FK__SpaceObje__Owner__35BCFE0A">
-            <End Role="SpaceObject" EntitySet="SpaceObject" />
-            <End Role="SpaceObject1" EntitySet="SpaceObject" />
-          </AssociationSet>
-        </EntityContainer>
         <Association Name="FK__SpaceObje__Owner__35BCFE0A">
           <End Type="SolarSystemModel.SpaceObject" Role="SpaceObject" Multiplicity="1" />
           <End Type="SolarSystemModel.SpaceObject" Role="SpaceObject1" Multiplicity="*" />
@@ -127,6 +115,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__SpaceObje__Space__164452B1">
+          <End Type="SolarSystemModel.SpaceObjectType" Role="SpaceObjectType" Multiplicity="1" />
+          <End Type="SolarSystemModel.SpaceObject" Role="SpaceObject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SpaceObjectType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SpaceObject">
+              <PropertyRef Name="SpaceObjectTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -136,14 +136,14 @@
           <EntitySetMapping Name="SpaceObject">
             <EntityTypeMapping TypeName="SolarSystemModel.SpaceObject">
               <MappingFragment StoreEntitySet="SpaceObject">
-                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="SpaceObjectTypeId" ColumnName="SpaceObjectTypeId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Mass" ColumnName="Mass" />
-                <ScalarProperty Name="Distance" ColumnName="Distance" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
                 <ScalarProperty Name="Radius" ColumnName="Radius" />
+                <ScalarProperty Name="Distance" ColumnName="Distance" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SpaceObjectTypeId" ColumnName="SpaceObjectTypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -151,8 +151,8 @@
             <EntityTypeMapping TypeName="SolarSystemModel.SpaceObjectType">
               <MappingFragment StoreEntitySet="SpaceObjectType">
                 <ScalarProperty Name="Plural" ColumnName="Plural" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -164,6 +164,8 @@
     <Content Include="Content\bootswatch\yeti\bootstrap.min.css" />
     <Content Include="Content\images\planets.png" />
     <Content Include="Content\images\sun.png" />
+    <Content Include="Content\index.css" />
+    <Content Include="Content\info.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\libs\bootstrap-multiselect.js" />
     <Content Include="Scripts\libs\bootstrap.js" />
@@ -171,6 +173,7 @@
     <Content Include="Scripts\solar\classes.js" />
     <Content Include="Scripts\solar\system.js" />
     <Content Include="Scripts\main_page.js" />
+    <Content Include="Scripts\info.js" />
     <Content Include="Scripts\starry.js" />
     <Content Include="Content\starry.css" />
     <Content Include="Content\main.css" />
@@ -213,6 +216,7 @@
     <Content Include="Scripts\libs\jquery-2.1.4.min.map" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\DropDown.cshtml" />
+    <Content Include="Views\Home\SpaceObjectInfo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

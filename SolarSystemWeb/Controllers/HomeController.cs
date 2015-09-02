@@ -38,6 +38,13 @@ namespace SolarSystemWeb.Controllers
             return PartialView(model);
         }
 
+        [HttpGet]
+        public PartialViewResult SpaceObjectInfo(int id)
+        {
+            var model = Repository.Get(id);            
+            return PartialView(model);
+        }
+
         protected override void Dispose(bool disposing)
         {
             TypesRepository.Dispose();

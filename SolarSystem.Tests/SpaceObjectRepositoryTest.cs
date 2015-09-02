@@ -91,8 +91,8 @@ namespace SolarSystem.Tests
         public void AddDeleteTest()
         {
             int countOld = repository.Count;
-            int typeId = repository.GetAll().FirstOrDefault()?.SpaceObjectTypeId ?? 1;
-            toAdd.SpaceObjectTypeId = typeId;
+            int typeId = repository.GetAll().FirstOrDefault()?.TypeId ?? 1;
+            toAdd.TypeId = typeId;
 
             using (var transaction = new TransactionScope())
             {                
@@ -116,8 +116,8 @@ namespace SolarSystem.Tests
         public async Task AddDeleteAsyncTest()
         {
             int countOld = repository.GetAll().Count();
-            int typeId = repository.GetAll().FirstOrDefault()?.SpaceObjectTypeId ?? 1;
-            toAdd.SpaceObjectTypeId = typeId;
+            int typeId = repository.GetAll().FirstOrDefault()?.TypeId ?? 1;
+            toAdd.TypeId = typeId;
 
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {                

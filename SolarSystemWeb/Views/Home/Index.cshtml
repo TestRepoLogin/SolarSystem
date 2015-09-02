@@ -9,10 +9,12 @@
 @Scripts.Render("~/bundles/starry")
 @Scripts.Render("~/bundles/solar")
 @Scripts.Render("~/bundles/mainPage")
+@Scripts.Render("~/bundles/info")
 
 @Styles.Render("~/Styles/starry")
+@Styles.Render("~/Styles/index")
 
-<script>
+<script>    
     var Solar = null;
 
     $().ready(
@@ -28,14 +30,26 @@
 
             $('select.multuselect').multiselect('refresh');
 
-            Solar = new App(document.getElementById("system_canvas"), spaceObjects);
+            Solar = new App(document.getElementById("system_canvas"), spaceObjects, infoCallback);
         });
 
 </script>
 
 @{ Html.RenderAction("TopPanel"); }
 
-<div id="mainArea">
-    <canvas id="star_field"    width="800" height="800" style="position: absolute; top: 70px; left: 30px;" ></canvas>
-    <canvas id="system_canvas" width="800" height="800" style="position: absolute; top: 70px; left: 30px; z-index: 10;"></canvas>
-</div>
+<table>
+    <tr>
+        <td style="vertical-align: top;">
+            <div id="mainArea">
+                <canvas id="star_field" width="800" height="800" ></canvas>
+                <canvas id="system_canvas" width="800" height="800" ></canvas>
+            </div>
+        </td>
+        <td style="vertical-align: top;">
+            <div id="info" class="jumbotron" >
+                <h2>Информация</h2>
+                <p id="stub">Ничего не выбрано</p>
+            </div>
+        </td>
+    </tr>
+</table>

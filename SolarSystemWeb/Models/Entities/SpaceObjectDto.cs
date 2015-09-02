@@ -4,7 +4,10 @@ namespace SolarSystemWeb.Models.Entities
 {
     public class SpaceObjectDto : SimpleModel
     {
-        public int SpaceObjectTypeId { get; set; }
+
+        public int TypeId { get; set; }
+
+        public string TypeName { get; set; }
 
         public string Description { get; set; }
 
