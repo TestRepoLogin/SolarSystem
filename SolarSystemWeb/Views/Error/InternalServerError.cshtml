@@ -1,0 +1,19 @@
+﻿@using System.Web.Optimization
+@model dynamic
+
+@{
+    ViewBag.Title = "title";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/Styles/error404")
+
+
+<div style="width: 100%;">
+    <div class="jumbotron container" style="">
+        <h1 class="margin">500</h1>
+        <p class="margin">Произошла ошибка</p>
+        <img src="../../Content/images/problem.jpg" class="margin img" />
+        <p class="margin">Хьюстон, у нас проблема. Похоже, мы не можем найти эту страницу.</p>
+    </div>
+</div>

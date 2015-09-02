@@ -1,0 +1,16 @@
+﻿.container {
+    width: 40%; 
+    margin-left: 30%; 
+    padding: 2%; 
+    padding-top: 20px; 
+    margin-top: 5%; 
+    height: 30%;
+}
+.margin {
+    margin-left: 5%;
+}
+.img {
+    width: 80%; 
+    height: 80%;
+    margin-bottom: 10px;
+}
