@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using DataLayer;
@@ -27,7 +26,8 @@ namespace SolarSystemWeb.Controllers
         }
         
         public ActionResult TopPanel()
-        {            
+        {
+            ViewBag.UserName = HttpContext.User.Identity.Name;
             var model = TypesRepository.GetAll().Where(x => !x.IsSun);
             return PartialView(model);            
         }

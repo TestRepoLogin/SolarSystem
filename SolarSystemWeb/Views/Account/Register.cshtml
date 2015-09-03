@@ -1,0 +1,48 @@
+﻿@model SolarSystemWeb.Models.ViewModels.RegisterModel
+
+@{
+    ViewBag.Title = "Регистрация";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<div style="margin-left: 5%;">
+    <form action="@Url.Action("Register")" method="POST" class="form-horizontal">
+        <fieldset>
+            @Html.ValidationSummary()
+            @if (ViewBag.returnUrl != null)
+            {
+                <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+            }
+
+            <legend>Регистрация пользователя</legend>
+            <div class="form-group">
+                <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+                <div class="col-lg-3">
+                    @Html.EditorFor(x => x.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email" } })
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword" class="col-lg-2 control-label">Пароль</label>
+                <div class="col-lg-3">
+                    @Html.EditorFor(x => x.Password, new {htmlAttributes = new {@class = "form-control", placeholder = "Пароль"}})
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword" class="col-lg-2 control-label">Подтвердить пароль</label>
+                <div class="col-lg-3">
+                    @Html.EditorFor(x => x.PasswordConfirm, new { htmlAttributes = new { @class = "form-control", placeholder = "Подтверждение пароля" } })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                    <a href="@Url.Action("Login")" class="btn btn-info">Войти</a>
+                </div>                
+            </div>
+        </fieldset>
+    </form>
+
+</div>

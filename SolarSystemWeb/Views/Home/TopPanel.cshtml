@@ -18,7 +18,8 @@
                 Html.RenderAction("DropDown", item);
             }
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Link</a></li>
+                <li><a>@ViewBag.UserName </a></li>
+                <li><a href="@Url.Action("Logout", "Account")">Выход</a></li>
             </ul>
         </div>
     </div>
