@@ -172,7 +172,7 @@
     <Content Include="Content\images\sun.png" />
     <Content Include="Content\index.css" />
     <Content Include="Content\info.css" />
-    <Content Include="Content\error404.css" />
+    <Content Include="Content\error.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\libs\bootstrap-multiselect.js" />
     <Content Include="Scripts\libs\bootstrap.js" />

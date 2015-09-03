@@ -23,7 +23,7 @@ namespace SolarSystemWeb
             bundles.Add(new StyleBundle("~/Styles/starry").Include("~/Content/starry.css"));
             bundles.Add(new StyleBundle("~/Styles/index").Include("~/Content/index.css"));
             bundles.Add(new StyleBundle("~/Styles/info").Include("~/Content/info.css"));            
-            bundles.Add(new StyleBundle("~/Styles/error404").Include("~/Content/error404.css"));            
+            bundles.Add(new StyleBundle("~/Styles/error").Include("~/Content/error.css"));            
         }
     }
 }

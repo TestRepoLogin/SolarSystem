@@ -24,7 +24,8 @@ namespace SolarSystem.Tests
             Description = "text description",
             Distance = 0,
             Mass = 0,
-            Radius = 0,            
+            Radius = 0,  
+            WikiLink = "some link",                       
         };
 
         [TestMethod]
@@ -91,8 +92,11 @@ namespace SolarSystem.Tests
         public void AddDeleteTest()
         {
             int countOld = repository.Count;
-            int typeId = repository.GetAll().FirstOrDefault()?.TypeId ?? 1;
+            var first = repository.GetAll().FirstOrDefault();
+            int typeId = first?.TypeId ?? 1;
+            int ownerId = first?.Id ?? 1;
             toAdd.TypeId = typeId;
+            toAdd.OwnerId = ownerId;
 
             using (var transaction = new TransactionScope())
             {                
@@ -116,8 +120,11 @@ namespace SolarSystem.Tests
         public async Task AddDeleteAsyncTest()
         {
             int countOld = repository.GetAll().Count();
-            int typeId = repository.GetAll().FirstOrDefault()?.TypeId ?? 1;
+            var first = repository.GetAll().FirstOrDefault();
+            int typeId = first?.TypeId ?? 1;
+            int ownerId = first?.OwnerId ?? 1; 
             toAdd.TypeId = typeId;
+            toAdd.OwnerId = ownerId;
 
             using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {                
