@@ -1,13 +1,18 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using DataLayer;
 using DataLayer.Repositories;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using SolarSystemWeb.Models.Entities;
+using SolarSystemWeb.Models.Identity;
 using SolarSystemWeb.Models.ViewModels;
 
 namespace SolarSystemWeb.Controllers
 {
+    [Authorize]
     public class HomeController : BaseController<SpaceObjectDto, SpaceObject>
     {
         public HomeController(ICrudRepository<SpaceObjectDto, SpaceObject> repository,
@@ -21,6 +26,9 @@ namespace SolarSystemWeb.Controllers
 
         public async Task<ActionResult> Index()
         {
+            ApplicationUserManager userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); 
+            var roles = userManager.GetRoles("20230070-e4cb-4e00-be67-4d17bd30cc7c");
+
             var model = await Repository.GetAllAsync();
             return View(model);
         }

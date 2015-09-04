@@ -19,7 +19,7 @@ namespace SolarSystemWeb.Models.Repositories
                      Distance = model.Distance,
                      SpaceObjectTypeId = model.TypeId,
                      OwnerId = model.OwnerId,
-                     WikiLink = model.WikiLink
+                     WikiLink = model.WikiLink,                     
                 } : null;
         }
 
@@ -37,7 +37,8 @@ namespace SolarSystemWeb.Models.Repositories
                     TypeId = data.SpaceObjectTypeId,
                     TypeName = data.SpaceObjectType.Name,
                     OwnerId = data.OwnerId,
-                    WikiLink = data.WikiLink
+                    WikiLink = data.WikiLink,
+                    OwnerName = data.SpaceObject2.Name
                 } : null;
         }
     }
