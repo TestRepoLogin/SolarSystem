@@ -19,3 +19,11 @@ function showAlert(parentSelector, text) {
                 '</div>';
     $(parentSelector).append(alert);
 }
+
+function showSuccess(parentSelector, text) {
+    var alert = '<div class="alert alert-dismissible alert-success">' +
+                    '<button type="button" class="close" data-dismiss="alert">×</button>' +
+                    text +
+                '</div>';
+    $(parentSelector).append(alert);
+}

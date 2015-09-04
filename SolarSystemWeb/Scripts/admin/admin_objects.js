@@ -11,6 +11,7 @@ function deleteObject(id, trId) {
         dataType: 'json',
         success: function () {
             $('#' + trId).remove();
+            showSuccess('#messages', 'Объект был успешно удален');
         },
         error: function (data) {
             showAlert('#messages', 'При выполнении запроса произошла ошибка. Поробуйте выполнить операцию позже');

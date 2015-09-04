@@ -14,15 +14,15 @@ namespace SolarSystemWeb.Models.Entities
         public string Description { get; set; }
 
         [Required(ErrorMessage = "Нужно указать массу")]
-        [Range(0, double.MaxValue, ErrorMessage = "Значение должно быть больше нуля")]
+        [Range(1, double.MaxValue, ErrorMessage = "Значение должно быть больше нуля")]
         public double Mass { get; set; }
 
         [Required(ErrorMessage = "Нужно указать радиус орбиты")]
-        [Range(0, double.MaxValue, ErrorMessage = "Значение должно быть больше нуля")]
+        [Range(1, double.MaxValue, ErrorMessage = "Значение должно быть больше нуля")]
         public double Distance { get; set; }
 
         [Required(ErrorMessage = "Нужно указать радиус")]
-        [Range(0, double.MaxValue, ErrorMessage = "Значение должно быть больше нуля")]
+        [Range(1, double.MaxValue, ErrorMessage = "Значение должно быть больше нуля")]
         public double Radius { get; set; }
 
         [Required(ErrorMessage = "Нужно указать, чей это спутник")]
@@ -33,6 +33,6 @@ namespace SolarSystemWeb.Models.Entities
         [Required(ErrorMessage = "Нужно указать ссылку на дополнительную информацию")]
         public string WikiLink { get; set; }
 
-        public bool IsSun => OwnerId == Id;
+        public bool IsSun => Id > 0 && OwnerId == Id;
     }
 }
