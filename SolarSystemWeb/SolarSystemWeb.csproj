@@ -210,6 +210,8 @@
     <Content Include="Content\info.css" />
     <Content Include="Content\error.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Scripts\admin\adminlayout.js" />
+    <Content Include="Scripts\admin\admin_objects.js" />
     <Content Include="Scripts\libs\bootstrap-multiselect.js" />
     <Content Include="Scripts\libs\bootstrap.js" />
     <Content Include="Scripts\libs\bootstrap.min.js" />
@@ -281,7 +283,8 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Shared\AdminLayout.cshtml" />
+    <Content Include="Views\Admin\AdminLayout.cshtml" />
+    <Content Include="Views\Admin\ChangeObject.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

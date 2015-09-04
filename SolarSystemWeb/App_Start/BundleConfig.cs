@@ -13,6 +13,8 @@ namespace SolarSystemWeb
             bundles.Add(new ScriptBundle("~/bundles/starry").Include("~/Scripts/starry.js"));
             bundles.Add(new ScriptBundle("~/bundles/mainPage").Include("~/Scripts/main_page.js"));
             bundles.Add(new ScriptBundle("~/bundles/info").Include("~/Scripts/info.js"));
+            bundles.Add(new ScriptBundle("~/bundles/admin").Include("~/Scripts/admin/adminlayout.js"));
+            bundles.Add(new ScriptBundle("~/bundles/admin_objects").Include("~/Scripts/admin/admin_objects.js"));
             bundles.Add(new ScriptBundle("~/bundles/solar").Include("~/Scripts/solar/classes.js", 
                                                                     "~/Scripts/solar/system.js"));
 

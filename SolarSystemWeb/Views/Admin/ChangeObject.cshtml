@@ -1,0 +1,91 @@
+﻿@model SolarSystemWeb.Models.Entities.SpaceObjectDto
+@{    
+    Layout = "AdminLayout.cshtml";
+}
+
+<style>
+    .field-validation-error {
+        color: #ff5555;
+    }
+
+    .field-validation-valid {
+        display: none;
+    }
+
+    .input-validation-error {
+        border: 1px solid #ff3322;
+        background-color: #ffeeee;
+    }
+</style>
+
+<form class="form-horizontal" style="width: 40%;" action="@Url.Action("ChangeObject")" method="post">    
+    <fieldset>
+        <legend>Редактирование</legend>
+        <div class="form-group">
+            <label for="inputEmail" class="col-lg-2 control-label">Название</label>
+            <div class="col-lg-10">
+                @Html.ValidationMessageFor(m => m.Name)
+                @Html.EditorFor(x => x.Name, new {htmlattributes = new {@class = "form-control", placeholder = "Email"}})
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword" class="col-lg-2 control-label">Тип</label>
+            <div class="col-lg-10">
+                @Html.ValidationMessageFor(m => m.TypeId)
+                @Html.DropDownListFor(x => x.TypeId, (SelectList) ViewBag.types, new {@class = "form-control"})
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="textArea" class="col-lg-2 control-label">Масса</label>
+            <div class="col-lg-10">
+                @Html.ValidationMessageFor(m => m.Mass)
+                @Html.EditorFor(x => x.Mass, new {htmlattributes = new {@class = "form-control", placeholder = "Масса"}})
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="textArea" class="col-lg-2 control-label">Радиус</label>
+            <div class="col-lg-10">
+                @Html.ValidationMessageFor(m => m.Radius)
+                @Html.EditorFor(x => x.Radius, new {htmlattributes = new {@class = "form-control", placeholder = "Радиус"}})
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="textArea" class="col-lg-2 control-label">Орбита</label>
+            <div class="col-lg-10">
+                @Html.ValidationMessageFor(m => m.Distance)
+                @Html.EditorFor(x => x.Distance, new {htmlattributes = new {@class = "form-control", placeholder = "Радиус орбиты"}})
+            </div>
+        </div>
+
+        @if (!Model.IsSun)
+        {
+            <div class="form-group">
+                <label for="inputPassword" class="col-lg-2 control-label">Чей спутник</label>
+                <div class="col-lg-10">
+                    @Html.ValidationMessageFor(m => m.OwnerId)
+                    @Html.DropDownListFor(x => x.OwnerId, (SelectList) ViewBag.all, new {@class = "form-control"})
+                </div>
+            </div>
+        }
+        <div class="form-group">
+            <label for="inputPassword" class="col-lg-2 control-label">Описание</label>
+            <div class="col-lg-10">
+                @Html.ValidationMessageFor(m => m.Description)
+                @Html.TextAreaFor(x => x.Description, new {@class = "form-control", placeholder = "Описание"})
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword" class="col-lg-2 control-label">Подробнее</label>
+            <div class="col-lg-10">
+                @Html.ValidationMessageFor(m => m.WikiLink)
+                @Html.TextAreaFor(x => x.WikiLink, new {@class = "form-control", placeholder = "Ссылка на инфо"})
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <a href="@Url.Action("Index")" class="btn btn-default">Отмена</a>
+            </div>
+        </div>
+    </fieldset>
+</form>

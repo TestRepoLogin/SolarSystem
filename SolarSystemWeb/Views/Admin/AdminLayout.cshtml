@@ -1,0 +1,21 @@
+﻿@using System.Web.Optimization
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@Scripts.Render("~/bundles/admin")
+
+@{ Html.RenderAction("TopPanel", "Home"); }
+
+<div style="margin-left: 5%;">
+    <ul class="nav nav-tabs">
+        <li class='objects'><a href="@Url.Action("Index")" data-toggle="tab">Космические объекты</a></li>
+        <li class='types'><a href="@Url.Action("Index", "Admin")" data-toggle="tab">Типы объектов</a></li>
+        <li class="disabled"><a>Disabled</a></li>
+        <li class='users'><a href="@Url.Action("Index", "Admin")" data-toggle="tab">Пользователи</a></li>
+    </ul>
+    
+    <div style="margin-top: 20px;">
+        @RenderBody()
+    </div>
+</div>

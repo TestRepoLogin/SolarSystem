@@ -1,9 +1,12 @@
-﻿@model IEnumerable<SolarSystemWeb.Models.Entities.SpaceObjectDto>
+﻿@using System.Web.Optimization
+@model IEnumerable<SolarSystemWeb.Models.Entities.SpaceObjectDto>
 
 @{
-    ViewBag.Title = "title";
-    Layout = "../Shared/AdminLayout.cshtml";
+    ViewBag.Title = "Админка";
+    Layout = "AdminLayout.cshtml";
 }
+
+@Scripts.Render("~/bundles/admin_objects")
 
 <style>
     .table-nonfluid {
@@ -18,60 +21,6 @@
     }
 </style>
 
-<script>
-
-    function showModal(title, text, onOkCallback) {
-        $('.modal .modal-title').text(title);
-        $('.modal .modal-body').text(text);
-        
-        $('.modal .ok').off('click');
-        $('.modal .ok').on('click', onOkCallback);
-
-        $('.modal').modal('show');
-    }
-
-    function hideModal() {
-        $('.modal').modal('hide');
-    }
-
-    function showAlert(parentSelector, text) {
-        var alert = '<div class="alert alert-dismissible alert-danger">' + 
-                        '<button type="button" class="close" data-dismiss="alert">×</button>' +                        
-                        text + 
-                    '</div>';
-        $(parentSelector).append(alert);
-    }
-
-
-    function deleteObject(id, trId) {
-        $.ajax({
-            url: '/Admin/DeleteObject',
-            data: { id: id },
-            type: 'get',   
-            dataType: 'json', 
-            success: function() {                
-                $('#' + trId).remove();
-            },
-            error: function(data) {
-                showAlert('#messages', 'При выполнении запроса произошла ошибка. Поробуйте выполнить операцию позже');
-            },
-            complete: function() {                
-                hideModal();
-            }
-        });
-    }
-
-    function onDelete(id, trId) {
-        showModal('Внимание!', 'Вы действительно хотите удалить запись?', 
-            function() {
-                deleteObject(id, trId);        
-            });        
-    }
-
-    function onEdit(id) {
-        
-    }
-</script>
 
 <div id="messages"  style="width: 40%;"></div>
 
@@ -99,7 +48,7 @@
                 <td>@item.Radius</td>
                 <td>@item.Distance</td>
                 <td>@item.OwnerName</td>
-                <td><a onclick="onEdit(@item.Id);return false;" href="javascript:void(0);">Редактировать</a></td>
+                <td><a href="@Url.Action("ChangeObject", new { id = item.Id })">Редактировать</a></td>
                 <td><a onclick="onDelete(@item.Id, 'tr_@item.Id');return false;" href="javascript:void(0);">Удалить</a></td>
             </tr>
         }
