@@ -37,14 +37,20 @@ namespace SolarSystemWeb.Controllers
             ViewBag.all = new SelectList(Repository.GetAll(), "Id", "Name");
             return PartialView("ChangeObject", new SpaceObjectDto());
         }
-        
+
         [HttpGet]
-        public PartialViewResult ChangeObject(int id)
+        public PartialViewResult CreateObjectType()     
+        {
+            return PartialView("ChangeObjectType", new SpaceObjectTypeDto());
+        }
+
+        [HttpGet]
+        public ActionResult ChangeObject(int id)
         {
             var model = Repository.Get(id);
             ViewBag.types = new SelectList(TypesRepository.GetAll(), "Id", "Name");
             ViewBag.all = new SelectList(Repository.Get(x => x.Id != id), "Id", "Name");
-            return PartialView(model);
+            return View(model);
         }
 
         [HttpPost]
@@ -68,6 +74,28 @@ namespace SolarSystemWeb.Controllers
             ViewBag.all = new SelectList(allTask.Result, "Id", "Name");
             
             return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult ChangeObjectType(int id)
+        {
+            var model = TypesRepository.Get(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ChangeObjectType(SpaceObjectTypeDto model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.Id > 0)
+                    await TypesRepository.UpdateAsync(model);
+                else
+                    await TypesRepository.AddAsync(model);
+                return RedirectToAction("ObjectTypes");
+            }
+
+            return View(new SpaceObjectTypeDto());
         }
 
         [HttpGet]

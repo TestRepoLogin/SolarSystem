@@ -1,0 +1,37 @@
+﻿@using System.Web.Optimization
+@model SolarSystemWeb.Models.Entities.SpaceObjectTypeDto
+@{    
+    Layout = "AdminLayout.cshtml";
+}
+
+@Styles.Render("~/Styles/adminValidation") 
+
+<form class="form-horizontal" style="width: 40%;" action="@Url.Action("ChangeObjectType")" method="post">    
+    <fieldset>
+        <legend>Редактирование</legend>
+        <div class="form-group">
+            <label for="inputEmail" class="col-lg-2 control-label">Название</label>
+            <div class="col-lg-10">
+                @Html.ValidationMessageFor(m => m.Name)
+                @Html.EditorFor(x => x.Name, new {htmlattributes = new {@class = "form-control", placeholder = "Название" } })
+            </div>
+        </div>        
+        
+        @if (!Model.IsSun)
+        {
+            <div class="form-group">
+                <label for="inputPassword" class="col-lg-2 control-label">Множественное число</label>
+                <div class="col-lg-10">
+                    @Html.ValidationMessageFor(m => m.Plural)
+                    @Html.EditorFor(x => x.Plural, new { htmlattributes = new { @class = "form-control", placeholder = "Множественное число" } })
+                </div>
+            </div>
+        }        
+        <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <a href="@Url.Action("ObjectTypes")" class="btn btn-default">Отмена</a>
+            </div>
+        </div>
+    </fieldset>
+</form>

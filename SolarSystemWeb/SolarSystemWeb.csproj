@@ -210,6 +210,7 @@
     <Content Include="Content\info.css" />
     <Content Include="Content\error.css" />
     <Content Include="Content\admin.css" />
+    <Content Include="Content\adminValidation.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\admin\adminlayout.js" />
     <Content Include="Scripts\admin\admin_objects.js" />
@@ -287,6 +288,7 @@
     <Content Include="Views\Admin\AdminLayout.cshtml" />
     <Content Include="Views\Admin\ChangeObject.cshtml" />
     <Content Include="Views\Admin\ObjectTypes.cshtml" />
+    <Content Include="Views\Admin\ChangeObjectType.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
