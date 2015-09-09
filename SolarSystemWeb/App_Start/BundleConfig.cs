@@ -26,6 +26,7 @@ namespace SolarSystemWeb
             bundles.Add(new StyleBundle("~/Styles/index").Include("~/Content/index.css"));
             bundles.Add(new StyleBundle("~/Styles/info").Include("~/Content/info.css"));            
             bundles.Add(new StyleBundle("~/Styles/error").Include("~/Content/error.css"));            
+            bundles.Add(new StyleBundle("~/Styles/adminTables").Include("~/Content/admin.css"));            
         }
     }
 }

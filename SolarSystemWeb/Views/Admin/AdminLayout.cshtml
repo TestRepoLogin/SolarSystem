@@ -4,18 +4,37 @@
 }
 
 @Scripts.Render("~/bundles/admin")
+@Styles.Render("~/Styles/adminTables")
 
 @{ Html.RenderAction("TopPanel", "Home"); }
 
 <div style="margin-left: 5%;">
     <ul class="nav nav-tabs">
-        <li class='objects'><a href="@Url.Action("Index")" data-toggle="tab">Космические объекты</a></li>
-        <li class='types'><a href="@Url.Action("Index", "Admin")" data-toggle="tab">Типы объектов</a></li>
+        <li class='objects'><a href="@Url.Action("Index")">Космические объекты</a></li>
+        <li class='types'><a href="@Url.Action("ObjectTypes", "Admin")">Типы объектов</a></li>
         <li class="disabled"><a>Disabled</a></li>
-        <li class='users'><a href="@Url.Action("Index", "Admin")" data-toggle="tab">Пользователи</a></li>
+        <li class='users'><a href="@Url.Action("Index", "Admin")">Пользователи</a></li>
     </ul>
-    
+
     <div style="margin-top: 20px;">
         @RenderBody()
+    </div>
+</div>
+
+<div class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default cancel" data-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary ok">Ок</button>
+            </div>
+        </div>
     </div>
 </div>

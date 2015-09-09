@@ -1,0 +1,12 @@
+﻿.table-nonfluid {
+    width: 70% !important;
+    border: grey 1px solid !important;
+}
+
+.table td {
+    padding: 10px !important;
+}
+
+.table th {
+    padding: 15px !important;
+}

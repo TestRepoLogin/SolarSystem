@@ -1,17 +1,13 @@
-﻿$().ready(
-    function() {
-        $('.objects').addClass('active');
-    });
-
-function deleteObject(id, trId) {
+﻿
+function deleteRecord(url, id, trId) {
     $.ajax({
-        url: "/Admin/DeleteObject",
+        url: url,
         data: { id: id },
         type: 'get',
         dataType: 'json',
         success: function () {
             $('#' + trId).remove();
-            showSuccess('#messages', 'Объект был успешно удален');
+            showSuccess('#messages', 'Данные были успешно удалены');
         },
         error: function (data) {
             showAlert('#messages', 'При выполнении запроса произошла ошибка. Поробуйте выполнить операцию позже');
@@ -22,9 +18,16 @@ function deleteObject(id, trId) {
     });
 }
 
-function onDelete(id, trId) {
+function onDeleteObject(id, trId) {
     showModal('Внимание!', 'Вы действительно хотите удалить запись?',
         function () {
-            deleteObject(id, trId);
+            deleteRecord("/Admin/DeleteObject", id, trId);
+        });
+}
+
+function onDeleteObjectType(id, trId) {
+    showModal('Внимание!', 'Вы действительно хотите удалить запись?',
+        function () {
+            deleteRecord("/Admin/DeleteObjectType", id, trId);
         });
 }

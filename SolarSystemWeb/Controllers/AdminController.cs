@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using DataLayer;
 using DataLayer.Repositories;
@@ -20,6 +21,12 @@ namespace SolarSystemWeb.Controllers
         public async Task<ActionResult> Index()
         {
             var model = await Repository.GetAllAsync();
+            return View(model);
+        }
+
+        public async Task<ActionResult> ObjectTypes()
+        {
+            var model = await TypesRepository.GetAllAsync();
             return View(model);
         }
 
@@ -68,6 +75,13 @@ namespace SolarSystemWeb.Controllers
         {
             Repository.Delete(id);
             return new JsonResult {JsonRequestBehavior = JsonRequestBehavior.AllowGet, Data = "OK" };
+        }
+
+        [HttpGet]
+        public JsonResult DeleteObjectType(int id)
+        {
+            TypesRepository.Delete(id);
+            return new JsonResult { JsonRequestBehavior = JsonRequestBehavior.AllowGet, Data = "OK" };
         }
 
         protected override void Dispose(bool disposing)
