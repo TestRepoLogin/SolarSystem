@@ -6,25 +6,34 @@
 <div >
     <h2>@Model.Name</h2>
 
-    <ul class="list-group">
-        <li class="list-group-item">
-            <span class="badge">@Model.TypeName</span>
-            Тип:
-        </li>
-        <li class="list-group-item">
-            <span class="badge">@Model.Mass кг.</span>
-            Масса:
-        </li>
-        <li class="list-group-item">
-            <span class="badge">@Model.Radius км.</span>
-            Радиус:
-        </li>
-        <li class="list-group-item">
-            <span class="badge">@Model.Distance км.</span>
-            Расстояние до Солнца:
-        </li>
-    </ul>
-
+    <table>
+        <tr>
+            <td style="vertical-align: top;">
+                <img src="@(Model.MainImage != null ? Url.Action("Show", "Image", new { Model.Id }) : "/Content/images/default.jpg")" style="width: 200px; " />
+            </td>
+            <td  style="width: 400px;">
+                <ul class="list-group" style="width: 94%;   height: 200px; margin-left: 5%; background-color: #2B3E50;" >
+                    <li class="list-group-item">
+                        <span class="badge">@Model.TypeName</span>
+                        Тип:
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">@Model.Mass кг.</span>
+                        Масса:
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">@Model.Radius км.</span>
+                        Радиус:
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">@Model.Distance км.</span>
+                        Расстояние до Солнца:
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+    
     <p style="font-size: 14px; line-height: 1.5;">@Model.Description</p>
     <p>
         <a class="btn btn-primary btn-lg" target="_blank" href="@Model.WikiLink" >Больше информации</a>

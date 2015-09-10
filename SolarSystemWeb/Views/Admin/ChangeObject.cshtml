@@ -4,9 +4,10 @@
     Layout = "AdminLayout.cshtml";
 }
 
-@Styles.Render("~/Styles/adminValidation") 
+@Styles.Render("~/Styles/adminValidation")
 
-<form class="form-horizontal" style="width: 40%;" action="@Url.Action("ChangeObject")" method="post">    
+
+<form class="form-horizontal" style="width: 40%;" action="@Url.Action("ChangeObject")" method="post" enctype="multipart/form-data">    
     <fieldset>
         <legend>Редактирование</legend>
         <div class="form-group">
@@ -67,6 +68,20 @@
             <div class="col-lg-10">
                 @Html.ValidationMessageFor(m => m.WikiLink)
                 @Html.TextAreaFor(x => x.WikiLink, new {@class = "form-control", placeholder = "Ссылка на инфо"})
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword" class="col-lg-2 control-label">Изображение</label>
+            <div class="col-lg-10">
+                <div style="position: relative;">
+                    @Html.ValidationMessageFor(m => m.MainImage)
+                    <a class='btn btn-primary' href='javascript:;'>
+                        Выберите файл...
+                        <input type="file" name='mainImg' style='position: absolute; z-index: 2; top: 0; left: 0; filter: alpha(opacity=0); -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; opacity: 0; background-color: transparent; color: transparent;' name="file_source" size="40" onchange='$("#upload-file-info").html($(this).val());'>
+                    </a>
+                    &nbsp;
+                    <span class='label label-success' id="upload-file-info"></span>
+                </div>
             </div>
         </div>
         <div class="form-group">

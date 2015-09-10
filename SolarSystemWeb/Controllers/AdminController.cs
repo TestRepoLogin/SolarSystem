@@ -1,8 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using DataLayer;
 using DataLayer.Repositories;
+using SolarSystemWeb.Models.Application;
 using SolarSystemWeb.Models.Entities;
 
 namespace SolarSystemWeb.Controllers
@@ -54,10 +55,21 @@ namespace SolarSystemWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> ChangeObject(SpaceObjectDto model)
+        public async Task<ActionResult> ChangeObject(SpaceObjectDto model, HttpPostedFileBase  mainImg)
         {
+            if (mainImg != null && mainImg.ContentLength > ApplicationSettings.Instance.MaxImageSize)
+            {
+                ModelState.AddModelError("MainImage", $"Размер загружаемого изображения не должен превышать {ApplicationSettings.Instance.MaxImageSize} байт");
+            }
+
             if (ModelState.IsValid)
             {
+                if (mainImg != null)
+                {                                         
+                    model.MainImage = new byte[mainImg.InputStream.Length];
+                    mainImg.InputStream.Read(model.MainImage, 0, (int)mainImg.InputStream.Length);
+                }
+
                 if(model.Id > 0)
                     await Repository.UpdateAsync(model);
                 else
@@ -111,7 +123,7 @@ namespace SolarSystemWeb.Controllers
             TypesRepository.Delete(id);
             return new JsonResult { JsonRequestBehavior = JsonRequestBehavior.AllowGet, Data = "OK" };
         }
-
+        
         protected override void Dispose(bool disposing)
         {
             TypesRepository.Dispose();

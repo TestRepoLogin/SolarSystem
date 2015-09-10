@@ -27,5 +27,10 @@ namespace DataLayer
     
         public virtual DbSet<SpaceObject> SpaceObject { get; set; }
         public virtual DbSet<SpaceObjectType> SpaceObjectType { get; set; }
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
     }
 }

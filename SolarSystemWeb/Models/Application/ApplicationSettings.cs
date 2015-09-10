@@ -39,5 +39,20 @@ namespace SolarSystemWeb.Models.Application
 
             }
         }
+        
+        /// <summary>
+        /// Максимальный размер загружаемого изображения
+        /// </summary>
+        public int MaxImageSize
+        {
+            get
+            {
+                string rawValue = ConfigurationManager.AppSettings["MaxImageSize"]; 
+                int res;
+                bool parseRes = int.TryParse(rawValue, out res);
+
+                return parseRes ? res : 0;
+            }
+        }
     }
 }

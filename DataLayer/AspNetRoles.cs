@@ -12,28 +12,20 @@ namespace DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class SpaceObject
+    public partial class AspNetRoles
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SpaceObject()
+        public AspNetRoles()
         {
-            this.SpaceObject1 = new HashSet<SpaceObject>();
+            this.AspNetUsers = new HashSet<AspNetUsers>();
         }
     
-        public int Id { get; set; }
-        public int SpaceObjectTypeId { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
-        public double Distance { get; set; }
-        public double Radius { get; set; }
-        public int OwnerId { get; set; }
-        public double Mass { get; set; }
         public string Description { get; set; }
-        public string WikiLink { get; set; }
-        public byte[] MainImage { get; set; }
+        public string Discriminator { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SpaceObject> SpaceObject1 { get; set; }
-        public virtual SpaceObject SpaceObject2 { get; set; }
-        public virtual SpaceObjectType SpaceObjectType { get; set; }
+        public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
     }
 }

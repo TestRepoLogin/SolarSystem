@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using DataLayer.Entities;
+using SolarSystemWeb.Models.Application;
 
 namespace SolarSystemWeb.Models.Entities
 {
@@ -32,6 +33,8 @@ namespace SolarSystemWeb.Models.Entities
 
         [Required(ErrorMessage = "Нужно указать ссылку на дополнительную информацию")]
         public string WikiLink { get; set; }
+        
+        public byte[] MainImage { get; set; }
 
         public bool IsSun => Id > 0 && OwnerId == Id;
     }
