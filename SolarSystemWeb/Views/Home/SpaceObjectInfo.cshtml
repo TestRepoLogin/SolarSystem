@@ -1,4 +1,5 @@
 ﻿@using System.Web.Optimization
+@using SolarSystemWeb.Models.Helpers
 @model SolarSystemWeb.Models.Entities.SpaceObjectDto
 
 @Styles.Render("~/Styles/info")
@@ -9,10 +10,10 @@
     <table>
         <tr>
             <td style="vertical-align: top;">
-                <img src="@(Model.MainImage != null ? Url.Action("Show", "Image", new { Model.Id }) : "/Content/images/default.jpg")" style="width: 200px; " />
+                <img src="@(Model.MainImage != null ? Url.Action("Show", "Image", new { Model.Id }) : "/Content/images/default.jpg")" style="width: 230px; height: 230px;" />
             </td>
             <td  style="width: 400px;">
-                <ul class="list-group" style="width: 94%;   height: 200px; margin-left: 5%; background-color: #2B3E50;" >
+                <ul class="list-group" style="width: 94%;   height: 230px; margin-left: 5%; background-color: #2B3E50;" >
                     <li class="list-group-item">
                         <span class="badge">@Model.TypeName</span>
                         Тип:
@@ -28,6 +29,14 @@
                     <li class="list-group-item">
                         <span class="badge">@Model.Distance км.</span>
                         Расстояние до Солнца:
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">@Model.SiderealPeriodSpan.ToReadableString()</span>
+                        Продолжительность суток:
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">@Model.OrbitPeriodSpan.ToReadableString()</span>
+                        Продолжительность года:
                     </li>
                 </ul>
             </td>

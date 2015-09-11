@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using DataLayer.Entities;
-using SolarSystemWeb.Models.Application;
 
 namespace SolarSystemWeb.Models.Entities
 {
@@ -26,6 +26,14 @@ namespace SolarSystemWeb.Models.Entities
         [Range(1, double.MaxValue, ErrorMessage = "Значение должно быть больше нуля")]
         public double Radius { get; set; }
 
+        [Required(ErrorMessage = "Нужно указать продолжительность года")]
+        [Range(1, double.MaxValue, ErrorMessage = "Значение должно быть больше нуля")]
+        public long OrbitPeriod { get; set; }
+
+        [Required(ErrorMessage = "Нужно указать продолжительность суток")]
+        [Range(1, double.MaxValue, ErrorMessage = "Значение должно быть больше нуля")]
+        public long SiderealPeriod { get; set; }
+
         [Required(ErrorMessage = "Нужно указать, чей это спутник")]
         public int OwnerId { get; set; }
 
@@ -33,9 +41,15 @@ namespace SolarSystemWeb.Models.Entities
 
         [Required(ErrorMessage = "Нужно указать ссылку на дополнительную информацию")]
         public string WikiLink { get; set; }
-        
+
         public byte[] MainImage { get; set; }
 
+        public byte[] OrbitImage { get; set; }
+
         public bool IsSun => Id > 0 && OwnerId == Id;
-    }
+
+        public TimeSpan OrbitPeriodSpan => TimeSpan.FromSeconds(OrbitPeriod);
+
+        public TimeSpan SiderealPeriodSpan => TimeSpan.FromSeconds(SiderealPeriod);        
+    }    
 }

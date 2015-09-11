@@ -20,7 +20,10 @@ namespace SolarSystemWeb.Models.Repositories
                      SpaceObjectTypeId = model.TypeId,
                      OwnerId = model.OwnerId,
                      WikiLink = model.WikiLink,  
-                     MainImage = model.MainImage
+                     MainImage = model.MainImage,
+                     OrbitImage = model.OrbitImage,
+                     OrbitPeriod = model.OrbitPeriod,
+                     SiderealPeriod = model.SiderealPeriod
                 } : null;
         }
 
@@ -40,7 +43,10 @@ namespace SolarSystemWeb.Models.Repositories
                     OwnerId = data.OwnerId,
                     WikiLink = data.WikiLink,
                     OwnerName = data.SpaceObject2.Name,
-                    MainImage = data.MainImage
+                    MainImage = data.MainImage,
+                    OrbitImage = data.OrbitImage,
+                    OrbitPeriod = data.OrbitPeriod,
+                    SiderealPeriod = data.SiderealPeriod
                 } : null;
         }
     }

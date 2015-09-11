@@ -1,4 +1,5 @@
 ﻿@using System.Web.Optimization
+@using SolarSystemWeb.Models.Helpers
 @model IEnumerable<SolarSystemWeb.Models.Entities.SpaceObjectDto>
 
 @{
@@ -29,6 +30,8 @@
         <th>Масса</th>
         <th>Радиус</th>
         <th>Радиус орбиты</th>
+        <th>Период обращения</th>
+        <th>Прод-ть суток</th>
         <th>Чей спутник</th>
         <th>Редактировать</th>
         <th>Удалить</th>
@@ -44,6 +47,8 @@
                 <td>@item.Mass</td>
                 <td>@item.Radius</td>
                 <td>@item.Distance</td>
+                <td>@item.OrbitPeriodSpan.ToReadableString()</td>
+                <td>@item.SiderealPeriodSpan.ToReadableString()</td>
                 <td>@item.OwnerName</td>
                 <td><a href="@Url.Action("ChangeObject", new { id = item.Id })">Редактировать</a></td>
                 <td><a onclick="onDeleteObject(@item.Id, 'tr_@item.Id');return false;" href="javascript:void(0);">Удалить</a></td>
