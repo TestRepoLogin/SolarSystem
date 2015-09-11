@@ -114,6 +114,8 @@ function Planet(orbit, radius, time) {
     this.speed = Math.PI * 2 / (time * 1000);
     this.angle = ~~(Math.random() * 360);
 
+    this.parent = null;
+
     this.animate = true;
     this.name;
     this.tile;
@@ -149,9 +151,16 @@ Planet.prototype.showInfo =
 Planet.prototype.render =
     function (deltaTime) {
         if (this.animate) {
-            this.pos.x = this.orbit.center.x + this.orbit.radius * Math.cos(this.angle);
-            this.pos.y = this.orbit.center.y + this.orbit.radius * Math.sin(this.angle);
-            this.angle += this.speed * deltaTime;
+            if (!this.parent) {
+                this.pos.x = this.orbit.center.x + this.orbit.radius * Math.cos(this.angle);
+                this.pos.y = this.orbit.center.y + this.orbit.radius * Math.sin(this.angle);
+                this.angle += this.speed * deltaTime;
+            } else {
+                this.pos.x = this.parent.pos.x + this.orbit.radius * Math.cos(this.angle);
+                this.pos.y = this.parent.pos.y + this.orbit.radius * Math.sin(this.angle);
+                this.angle += this.speed * deltaTime * 10;
+            }
+            
         }
 
         if (typeof this.tile !== 'undefined') {

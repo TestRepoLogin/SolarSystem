@@ -50,13 +50,18 @@ App.prototype = {
         im.add('/Content/images/sun.png', 'sun');
         im.add('/Content/images/planets.png', 'planets');
 
-        var time = 40;             
+        var time = 40;
+        var sunId = -1;
 
         for (var i = 0; i < planetsInfo.length; ++i) {
             
-            var distance = planetsInfo[i].isSun ? 0 : 40 + planetsInfo[i].distance * 27;
+            var distance = planetsInfo[i].isSun ? 0 : 10 + planetsInfo[i].distance * 27;
             var tile = planetsInfo[i].isSun ? new Tile(this.ctx, this._resources['sun'], 0, 0, 100, 100) :
                                               new Tile(this.ctx, this._resources['planets'], i * 26, 0, 26, 26);
+
+            if (planetsInfo[i].isSun) {
+                sunId = planetsInfo[i].id;
+            }
 
             var orbit = new Orbit(globalCenter.clone(), distance).setProperty({ ctx: this.ctx, mouse: this.mouse }, true);
             var planet = new Planet(orbit, 13, time).setProperty({
@@ -64,12 +69,29 @@ App.prototype = {
                 id: planetsInfo[i].id,
                 name: planetsInfo[i].name,
                 needShow: planetsInfo[i].needShow,
+                ownerId: planetsInfo[i].ownerId,
                 ctx: this.ctx
             }, true);
             this.planets.push(planet);
             
             time += 20;
+        }        
+        
+
+        for (var i = 0; i < this.planets.length; ++i) {
+            if (this.planets[i].ownerId !== sunId) {
+                var owner = null;
+                for (var j = 0; j < this.planets.length; ++j) {
+                    if (this.planets[i].ownerId == this.planets[j].id) {
+                        owner = this.planets[j];
+                        this.planets[i].setProperty({ parent: this.planets[j] }, true);                  
+                        this.planets[i].orbit.setProperty({ center: this.planets[j].pos }, true);                  
+                        break;
+                    }
+                }
+            }
         }
+
     },
     
     setPlanetVisibility: function(id, flag) {

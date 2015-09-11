@@ -14,18 +14,29 @@
 @Styles.Render("~/Styles/starry")
 @Styles.Render("~/Styles/index")
 
-<script>    
+<script>
     var Solar = null;
 
     $().ready(
         function() {
             var spaceObjects = [];
-            
+
             @foreach (var item in Model)
-            {                
-                @:var obj = { id: @item.Id, name: '@item.Name', distance: @item.Distance.ToString("F").Replace(',', '.'), isSun: @item.IsSun.ToString().ToLower(), needShow: true };
+            {
+                <text>
+                    var obj = {
+                        id: @item.Id,
+                        name: '@item.Name',
+                        distance: @item.Distance.ToString("F").Replace(',', '.'),
+                        isSun: @item.IsSun.ToString().ToLower(),
+                        needShow: true,
+                        ownerId: @item.OwnerId
+                    };
+                </text>                
+
                 @:spaceObjects.push(obj);
-                @:$('select.multiselect').find("option[value=" + @item.Id + "]").prop("selected", "selected");
+                            @:$('select.multiselect').find("option[value=" + @item.Id + "]").prop("selected", "selected");
+
             }
 
             $('select.multuselect').multiselect('refresh');
