@@ -4,6 +4,6 @@ namespace SolarSystemWeb.Models.Identity
 {
     public class ApplicationRole : IdentityRole
     {
-        public string Description { get; set; }
+        public virtual string Description { get; set; }
     }
 }

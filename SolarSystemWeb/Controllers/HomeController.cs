@@ -12,7 +12,7 @@ using SolarSystemWeb.Models.ViewModels;
 
 namespace SolarSystemWeb.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "User")]
     public class HomeController : BaseController<SpaceObjectDto, SpaceObject>
     {
         public HomeController(ICrudRepository<SpaceObjectDto, SpaceObject> repository,
@@ -26,10 +26,6 @@ namespace SolarSystemWeb.Controllers
 
         public async Task<ActionResult> Index()
         {
-            ApplicationUserManager userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); 
-            var roles = userManager.GetRoles("20230070-e4cb-4e00-be67-4d17bd30cc7c");
-
-            //var model = await Repository.GetAsync(x => x.Id == 4 || x.Id == 13 || x.Id == 1);
             var model = await Repository.GetAllAsync();
             return View(model);
         }

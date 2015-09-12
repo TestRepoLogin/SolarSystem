@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -73,11 +74,21 @@ namespace DataLayer.Repositories
         {
             var toUpdate = FromModelToDataConverter(item);
             Context.Set<TData>().Attach(toUpdate);
-            Context.Entry(toUpdate).State = EntityState.Modified;
+            Context.Entry(toUpdate).State = EntityState.Modified;            
 
             await Context.SaveChangesAsync();
         }
 
+        //public async Task UpdateAsync<TProperty>(TModel item, Expression<Func<TData, TProperty>> property) where TProperty : class
+        //{
+        //    var toUpdate = FromModelToDataConverter(item);
+        //    Context.Set<TData>().Attach(toUpdate);
+        //    Context.Entry(toUpdate).State = EntityState.Modified;
+
+        //    Context.Entry(item).Property();
+        //    await Context.SaveChangesAsync();
+        //}
+       
         public void Delete(int id)
         {
             var toDel = Context.Set<TData>().Find(id);

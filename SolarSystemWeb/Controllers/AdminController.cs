@@ -8,6 +8,7 @@ using SolarSystemWeb.Models.Entities;
 
 namespace SolarSystemWeb.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : BaseController<SpaceObjectDto, SpaceObject>
     {
         public AdminController(ICrudRepository<SpaceObjectDto, SpaceObject> repository,
@@ -21,6 +22,7 @@ namespace SolarSystemWeb.Controllers
 
         public async Task<ActionResult> Index()
         {
+            ViewBag.UserName = HttpContext.User.Identity.Name;
             var model = await Repository.GetAllAsync();
             return View(model);
         }

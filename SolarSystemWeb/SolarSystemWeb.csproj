@@ -33,6 +33,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -242,18 +243,19 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\imageController.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201509041124461_DataMigration.cs" />
-    <Compile Include="Migrations\201509041124461_DataMigration.Designer.cs">
-      <DependentUpon>201509041124461_DataMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201509121300360_DataMigration.cs" />
+    <Compile Include="Migrations\201509121300360_DataMigration.Designer.cs">
+      <DependentUpon>201509121300360_DataMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Application\ApplicationSettings.cs" />
@@ -265,6 +267,7 @@
     <Compile Include="Models\Identity\ApplicationRoleManager.cs" />
     <Compile Include="Models\Identity\ApplicationUser.cs" />
     <Compile Include="Models\Identity\ApplicationUserManager.cs" />
+    <Compile Include="Models\Identity\Roles.cs" />
     <Compile Include="Models\ViewModels\LoginModel.cs" />
     <Compile Include="Models\ViewModels\RegisterModel.cs" />
     <Compile Include="Models\Repositories\SpaceObjectTypeRepository.cs" />
@@ -291,6 +294,8 @@
     <Content Include="Views\Admin\ChangeObject.cshtml" />
     <Content Include="Views\Admin\ObjectTypes.cshtml" />
     <Content Include="Views\Admin\ChangeObjectType.cshtml" />
+    <Content Include="Views\Roles\ChangeRole.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -308,8 +313,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201509041124461_DataMigration.resx">
-      <DependentUpon>201509041124461_DataMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201509121300360_DataMigration.resx">
+      <DependentUpon>201509121300360_DataMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

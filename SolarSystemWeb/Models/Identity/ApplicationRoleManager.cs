@@ -8,14 +8,14 @@ namespace SolarSystemWeb.Models.Identity
     public class ApplicationRoleManager : RoleManager<ApplicationRole>
     {
         public ApplicationRoleManager(RoleStore<ApplicationRole> store)
-                    : base(store)
-        { }
-
-        public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options,
-                                                    IOwinContext context)
+            : base(store)
         {
-            return new ApplicationRoleManager(new
-                    RoleStore<ApplicationRole>(context.Get<ApplicationContext>()));
+            
         }
+
+        public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
+        {
+            return new ApplicationRoleManager(new RoleStore<ApplicationRole>(context.Get<ApplicationContext>()));
+        }        
     }
 }

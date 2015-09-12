@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System.Linq;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -16,6 +17,9 @@ namespace SolarSystemWeb.Models.Identity
                                                 IOwinContext context)
         {
             ApplicationContext db = context.Get<ApplicationContext>();
+            var users = db.Users.Select(x => x).ToList();
+            var roles = db.Roles.Select(x => x).ToList();
+
             ApplicationUserManager manager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
             return manager;
         }

@@ -11,6 +11,7 @@ using static System.String;
 
 namespace SolarSystemWeb.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private ApplicationUserManager UserManager => HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -80,6 +81,7 @@ namespace SolarSystemWeb.Controllers
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await UserManager.AddToRoleAsync(user.Id, "user");
                     return RedirectToAction("Index");
                 }
 

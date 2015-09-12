@@ -13,7 +13,7 @@ namespace SolarSystemWeb.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201509041124461_DataMigration"; }
+            get { return "201509121300360_DataMigration"; }
         }
         
         string IMigrationMetadata.Source

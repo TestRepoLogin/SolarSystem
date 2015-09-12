@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace SolarSystemWeb.Models.Identity
 {
@@ -10,5 +11,7 @@ namespace SolarSystemWeb.Models.Identity
         {
             return new ApplicationContext();
         }
+
+        //public virtual IDbSet<TUser> Users { get; set; }
     }
 }

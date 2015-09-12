@@ -31,3 +31,10 @@ function onDeleteObjectType(id, trId) {
             deleteRecord("/Admin/DeleteObjectType", id, trId);
         });
 }
+
+function onDeleteRole(id, trId) {
+    showModal('Внимание!', 'Вы действительно хотите удалить запись?',
+        function () {
+            deleteRecord("/Roles/Delete", id, trId);
+        });
+}
