@@ -120,6 +120,12 @@ App.prototype = {
         }
     },
 
+    setOrbitVisibility: function (flag) {
+        for (var i = 0; i < this.planets.length; i++) {            
+                this.planets[i].setOrbitVisibility(flag);                           
+        }
+    },
+
     render: function (lastTime) {        
         var curTime = new Date();
         var self = this,
@@ -136,7 +142,9 @@ App.prototype = {
             if (!planets[i].needShow)
                 continue;
 
-            planets[i].orbit.draw();
+            if (planets[i].orbitVisibility)
+                planets[i].orbit.draw();
+
             planets[i].render(curTime - lastTime);
             if (Math.abs(planets[i].pos.x - mouse.pos.x) < planets[i].radius
                 && Math.abs(planets[i].pos.y - mouse.pos.y) < planets[i].radius) {

@@ -77,7 +77,7 @@ function Orbit(center, radius) {
 
     this.planet = null;
     this.ctx = null;
-    this.mouse = null;
+    this.mouse = null;    
 };
 
 Orbit.prototype = Object.create(Base.prototype);
@@ -121,6 +121,7 @@ function Planet(orbit, radius, time) {
     this.tile;
     this.ctx;
     this.orbit.setProperty({ 'planet': this });
+    this.orbitVisibility = true;
 };
 
 Planet.prototype = Object.create(Base.prototype);
@@ -148,6 +149,10 @@ Planet.prototype.showInfo =
         ctx.fillText(this.name, x + 50, y + 17);
     },
 
+Planet.prototype.setOrbitVisibility = function(flag) {
+    this.orbitVisibility = flag ? true : false;
+}
+
 Planet.prototype.render =
     function (deltaTime) {
         if (this.animate) {
@@ -162,7 +167,7 @@ Planet.prototype.render =
             }
             
         }
-
+        
         if (typeof this.tile !== 'undefined') {
             this.tile.draw(this.pos.x, this.pos.y, // Центр тайла
                 this.orbit.center, this.radius);

@@ -39,10 +39,14 @@
 
             }
 
-            $('select.multuselect').multiselect('refresh');
+            $('select.multuselect').multiselect('refresh');            
 
             Solar = new App(document.getElementById("system_canvas"), spaceObjects, infoCallback);
         });
+
+        function setOrbitVisible(flag) {
+            
+        }
 
 </script>
 
@@ -58,7 +62,12 @@
             </div>
         </td>
         <td style="vertical-align: top;">
-            <div id="info" class="jumbotron" >
+            <div id='panel' class="jumbotron">
+                <label id="orbitLabel">Отображать орбиты</label>    
+                <input id="orbitCheckbox" type="checkbox" checked="checked" onchange="Solar.setOrbitVisibility($(this).is(':checked'))" />
+            </div>
+            
+            <div id="info" class="jumbotron">
                 <h2>Информация</h2>
                 <p id="stub">Ничего не выбрано</p>
             </div>

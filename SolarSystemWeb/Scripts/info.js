@@ -7,6 +7,7 @@
         dataType: 'html',
         success: function (data) {
             $('#info').html(data.responseText);
+            $('#info').css('height', '725px');
         },
         complete: function (data) {
             $('#info').html(data.responseText);
