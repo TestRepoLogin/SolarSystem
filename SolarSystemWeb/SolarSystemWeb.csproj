@@ -243,6 +243,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -261,13 +262,16 @@
     <Compile Include="Models\Application\ApplicationSettings.cs" />
     <Compile Include="Models\Application\CustomControllerFactory.cs" />
     <Compile Include="Models\Entities\SpaceObjectTypeDto.cs" />
+    <Compile Include="Models\Exceptions\DeleteUserException.cs" />
+    <Compile Include="Models\Exceptions\PermissionException.cs" />
     <Compile Include="Models\Helpers\TimespanExtension.cs" />
     <Compile Include="Models\Identity\ApplicationContext.cs" />
     <Compile Include="Models\Identity\ApplicationRole.cs" />
     <Compile Include="Models\Identity\ApplicationRoleManager.cs" />
     <Compile Include="Models\Identity\ApplicationUser.cs" />
     <Compile Include="Models\Identity\ApplicationUserManager.cs" />
-    <Compile Include="Models\Identity\Roles.cs" />
+    <Compile Include="Models\ViewModels\UserModel.cs" />
+    <Compile Include="Models\ViewModels\Roles.cs" />
     <Compile Include="Models\ViewModels\LoginModel.cs" />
     <Compile Include="Models\ViewModels\RegisterModel.cs" />
     <Compile Include="Models\Repositories\SpaceObjectTypeRepository.cs" />
@@ -296,6 +300,8 @@
     <Content Include="Views\Admin\ChangeObjectType.cshtml" />
     <Content Include="Views\Roles\ChangeRole.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\ChangeUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

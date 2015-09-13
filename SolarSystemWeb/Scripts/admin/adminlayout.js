@@ -13,6 +13,7 @@ function hideModal() {
 }
 
 function showAlert(parentSelector, text) {
+    $(parentSelector).find('.alert').remove();
     var alert = '<div class="alert alert-dismissible alert-danger">' +
                     '<button type="button" class="close" data-dismiss="alert">×</button>' +
                     text +
@@ -21,6 +22,7 @@ function showAlert(parentSelector, text) {
 }
 
 function showSuccess(parentSelector, text) {
+    $(parentSelector).find('.alert').remove();
     var alert = '<div class="alert alert-dismissible alert-success">' +
                     '<button type="button" class="close" data-dismiss="alert">×</button>' +
                     text +

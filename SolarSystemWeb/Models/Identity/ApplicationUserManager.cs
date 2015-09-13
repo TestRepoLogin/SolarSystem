@@ -11,15 +11,13 @@ namespace SolarSystemWeb.Models.Identity
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
                 : base(store)
         {
+            
         }
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options,
                                                 IOwinContext context)
         {
-            ApplicationContext db = context.Get<ApplicationContext>();
-            var users = db.Users.Select(x => x).ToList();
-            var roles = db.Roles.Select(x => x).ToList();
-
+            ApplicationContext db = context.Get<ApplicationContext>();            
             ApplicationUserManager manager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
             return manager;
         }

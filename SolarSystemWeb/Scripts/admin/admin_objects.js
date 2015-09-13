@@ -9,7 +9,26 @@ function deleteRecord(url, id, trId) {
             $('#' + trId).remove();
             showSuccess('#messages', 'Данные были успешно удалены');
         },
-        error: function (data) {
+        error: function () {
+            showAlert('#messages', 'При выполнении запроса произошла ошибка. Поробуйте выполнить операцию позже');
+        },
+        complete: function () {        
+            hideModal();            
+        }
+    });
+}
+
+function setAdminPermission(userId, flag) {
+    
+    $.ajax({
+        url: '/User/ChangeAdminPermission',
+        data: { userId: userId, flag: flag },
+        type: 'get',
+        dataType: 'json',
+        success: function () {            
+            showSuccess('#messages', 'Данные были успешно изменены');
+        },
+        error: function () {
             showAlert('#messages', 'При выполнении запроса произошла ошибка. Поробуйте выполнить операцию позже');
         },
         complete: function () {
@@ -36,5 +55,12 @@ function onDeleteRole(id, trId) {
     showModal('Внимание!', 'Вы действительно хотите удалить запись?',
         function () {
             deleteRecord("/Roles/Delete", id, trId);
+        });
+}
+
+function onDeleteUser(id, trId) {
+    showModal('Внимание!', 'Вы действительно хотите удалить запись?',
+        function () {
+            deleteRecord("/User/Delete", id, trId);
         });
 }

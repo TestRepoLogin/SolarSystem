@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using SolarSystemWeb.Models.Identity;
+using SolarSystemWeb.Models.ViewModels;
 
 namespace SolarSystemWeb.Controllers
 {
@@ -15,6 +16,7 @@ namespace SolarSystemWeb.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.UserName = HttpContext.User.Identity.Name;
             return View(RoleManager.Roles);
         }
 
