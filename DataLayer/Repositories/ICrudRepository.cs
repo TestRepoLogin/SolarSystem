@@ -28,6 +28,9 @@ namespace DataLayer.Repositories
 
         void Update(TModel item);
 
+        Task UpdateAsync<TProperty>(TModel item, IEnumerable<Expression<Func<TData, TProperty>>> excludingFields)
+            where TProperty : class;
+
         Task UpdateAsync(TModel item);
 
         void Delete(int id);

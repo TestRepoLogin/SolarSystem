@@ -54,5 +54,10 @@ namespace SolarSystemWeb.Models.Application
                 return parseRes ? res : 0;
             }
         }
+
+        /// <summary>
+        /// Списко разрешенных MIME-типов для загружаемых изображений
+        /// </summary>
+        public string[] AllowedTypes => ConfigurationManager.AppSettings["AllowedTypes"].Split(';');
     }
 }

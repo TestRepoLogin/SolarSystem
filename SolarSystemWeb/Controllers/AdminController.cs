@@ -1,4 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DataLayer;
@@ -59,32 +63,29 @@ namespace SolarSystemWeb.Controllers
         [HttpPost]
         public async Task<ActionResult> ChangeObject(SpaceObjectDto model, HttpPostedFileBase  mainImg, HttpPostedFileBase orbitImg)
         {
-            if (mainImg != null && mainImg.ContentLength > ApplicationSettings.Instance.MaxImageSize)
-            {
-                ModelState.AddModelError("MainImage", $"Размер загружаемого изображения не должен превышать {ApplicationSettings.Instance.MaxImageSize} байт");
-            }
-
-            if (orbitImg != null && orbitImg.ContentLength > ApplicationSettings.Instance.MaxImageSize)
-            {
-                ModelState.AddModelError("OrbitImage", $"Размер загружаемого изображения не должен превышать {ApplicationSettings.Instance.MaxImageSize} байт");
-            }
+            ValidateImage("MainImage", mainImg);
+            ValidateImage("OrbitImage", orbitImg);
 
             if (ModelState.IsValid)
             {
                 if (mainImg != null)
-                {                                         
-                    model.MainImage = new byte[mainImg.InputStream.Length];
-                    mainImg.InputStream.Read(model.MainImage, 0, (int)mainImg.InputStream.Length);
-                }
+                    model.MainImage = GetImageArray(mainImg);
 
                 if (orbitImg != null)
-                {
-                    model.OrbitImage = new byte[orbitImg.InputStream.Length];
-                    orbitImg.InputStream.Read(model.OrbitImage, 0, (int)orbitImg.InputStream.Length);
-                }
+                    model.OrbitImage = GetImageArray(orbitImg);
 
                 if (model.Id > 0)
-                    await Repository.UpdateAsync(model);
+                {
+                    var excluding = new List<Expression<Func<SpaceObject, byte[]>>>();
+
+                    if(model.MainImage == null)                    
+                        excluding.Add(x => x.MainImage);
+
+                    if (model.OrbitImage == null)
+                        excluding.Add(x => x.OrbitImage);
+
+                    await Repository.UpdateAsync(model, excluding);
+                }
                 else
                     await Repository.AddAsync(model);
                 return RedirectToAction("Index");
@@ -136,7 +137,30 @@ namespace SolarSystemWeb.Controllers
             TypesRepository.Delete(id);
             return new JsonResult { JsonRequestBehavior = JsonRequestBehavior.AllowGet, Data = "OK" };
         }
-        
+
+        [NonAction]
+        private byte[] GetImageArray(HttpPostedFileBase file)
+        {
+            var res = new byte[file.InputStream.Length];
+            file.InputStream.Read(res, 0, (int)file.InputStream.Length);
+            return res;
+        }
+
+        [NonAction]
+        private void ValidateImage(string key, HttpPostedFileBase file)
+        {
+            if (file != null && !ApplicationSettings.Instance.AllowedTypes.Contains(file.ContentType))
+            {
+                ModelState.AddModelError(key, "Недопустимый тип загружаемого файла");
+                return;
+            }
+
+            if (file != null && file.ContentLength > ApplicationSettings.Instance.MaxImageSize)
+            {
+                ModelState.AddModelError(key, $"Размер загружаемого изображения не должен превышать {ApplicationSettings.Instance.MaxImageSize} байт");
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             TypesRepository.Dispose();

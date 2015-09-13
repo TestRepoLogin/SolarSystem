@@ -50,10 +50,7 @@ App.prototype = {
                 image.onload = function () {                    
                     self.imagesLoaded++;                    
                     
-                    var planet = findById(that.planets, name);
-                    console.log(findById(that.planets, name));
-
-                    debugger;
+                    var planet = findById(that.planets, name);                                       
                     var tile = planet.isSun ? new Tile(that.ctx, this._resources['sun'], 0, 0, 100, 100) :
                                                       new Tile(that.ctx, that._resources[planet.id], 0, 0, this.width, this.height);
 

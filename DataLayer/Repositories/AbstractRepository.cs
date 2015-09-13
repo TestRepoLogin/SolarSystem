@@ -79,16 +79,19 @@ namespace DataLayer.Repositories
             await Context.SaveChangesAsync();
         }
 
-        //public async Task UpdateAsync<TProperty>(TModel item, Expression<Func<TData, TProperty>> property) where TProperty : class
-        //{
-        //    var toUpdate = FromModelToDataConverter(item);
-        //    Context.Set<TData>().Attach(toUpdate);
-        //    Context.Entry(toUpdate).State = EntityState.Modified;
+        public async Task UpdateAsync<TProperty>(TModel item, IEnumerable<Expression<Func<TData, TProperty>>> excludingFields) where TProperty : class
+        {
+            var toUpdate = FromModelToDataConverter(item);
+            Context.Set<TData>().Attach(toUpdate);
+            Context.Entry(toUpdate).State = EntityState.Modified;
 
-        //    Context.Entry(item).Property();
-        //    await Context.SaveChangesAsync();
-        //}
-       
+            foreach (var property in excludingFields)
+            {
+                Context.Entry(toUpdate).Property(property).IsModified = false;
+            }
+            await Context.SaveChangesAsync();
+        }
+
         public void Delete(int id)
         {
             var toDel = Context.Set<TData>().Find(id);
