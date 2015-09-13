@@ -4,6 +4,9 @@ using SolarSystemWeb.Models.Identity;
 
 namespace SolarSystemWeb.Models.ViewModels
 {
+    /// <summary>
+    /// Модель для отображения данных о пользователе и его ролях
+    /// </summary>
     public class UserModel
     {
         public UserModel(string name, IEnumerable<RoleModel> roles)

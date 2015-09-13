@@ -25,13 +25,12 @@ namespace SolarSystemWeb.Models.Entities
         [Required(ErrorMessage = "Нужно указать радиус")]
         [Range(1, double.MaxValue, ErrorMessage = "Значение должно быть больше нуля")]
         public double Radius { get; set; }
-
-        [Required(ErrorMessage = "Нужно указать продолжительность года")]
-        [Range(1, double.MaxValue, ErrorMessage = "Значение должно быть больше нуля")]
-        public long OrbitPeriod { get; set; }
+        
+        [Range(1, long.MaxValue, ErrorMessage = "Значение должно быть больше нуля")]
+        public long? OrbitPeriod { get; set; }
 
         [Required(ErrorMessage = "Нужно указать продолжительность суток")]
-        [Range(1, double.MaxValue, ErrorMessage = "Значение должно быть больше нуля")]
+        [Range(1, long.MaxValue, ErrorMessage = "Значение должно быть больше нуля")]
         public long SiderealPeriod { get; set; }
 
         [Required(ErrorMessage = "Нужно указать, чей это спутник")]
@@ -48,7 +47,7 @@ namespace SolarSystemWeb.Models.Entities
 
         public bool IsSun => Id > 0 && OwnerId == Id;
 
-        public TimeSpan OrbitPeriodSpan => TimeSpan.FromSeconds(OrbitPeriod);
+        public TimeSpan OrbitPeriodSpan => TimeSpan.FromSeconds(OrbitPeriod ?? 0);
 
         public TimeSpan SiderealPeriodSpan => TimeSpan.FromSeconds(SiderealPeriod);        
     }    

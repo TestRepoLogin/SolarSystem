@@ -28,6 +28,17 @@ App.prototype = {
         var globalCenter = new Point(this.canvas.width / 2, this.canvas.height / 2);
         this.mouse = new MouseController(this.canvas);
 
+        var that = this;
+
+        var findById = function (arr, id) {
+            
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i].id == id) {
+                    return arr[i];
+                }
+            }
+        }
+
         var im = {
             store: this._resources,
             imagesAdded: 0,
@@ -35,8 +46,19 @@ App.prototype = {
             add: function (url, name) {                
                 var self = this;
                 var image = new Image();                
+
                 image.onload = function () {                    
-                    self.imagesLoaded++;
+                    self.imagesLoaded++;                    
+                    
+                    var planet = findById(that.planets, name);
+                    console.log(findById(that.planets, name));
+
+                    debugger;
+                    var tile = planet.isSun ? new Tile(that.ctx, this._resources['sun'], 0, 0, 100, 100) :
+                                                      new Tile(that.ctx, that._resources[planet.id], 0, 0, this.width, this.height);
+
+                    planet.setProperty({ tile: tile }, true);
+
                     if (self.imagesAdded == self.imagesLoaded) {
                         self.app.render(new Date());
                     }
@@ -47,17 +69,16 @@ App.prototype = {
             },
             app: this
         }
-        im.add('/Content/images/sun.png', 'sun');
-        im.add('/Content/images/planets.png', 'planets');
+
 
         var time = 40;
-        var sunId = -1;
+        var sunId = -1;       
 
         for (var i = 0; i < planetsInfo.length; ++i) {
-            
-            var distance = planetsInfo[i].isSun ? 0 : 10 + planetsInfo[i].distance * 27;
-            var tile = planetsInfo[i].isSun ? new Tile(this.ctx, this._resources['sun'], 0, 0, 100, 100) :
-                                              new Tile(this.ctx, this._resources['planets'], i * 26, 0, 26, 26);
+
+            im.add('/Image/ShowPng/' + planetsInfo[i].id, planetsInfo[i].id);            
+
+            var distance = planetsInfo[i].isSun ? 0 : 10 + planetsInfo[i].distance * 32;
 
             if (planetsInfo[i].isSun) {
                 sunId = planetsInfo[i].id;
@@ -65,7 +86,6 @@ App.prototype = {
 
             var orbit = new Orbit(globalCenter.clone(), distance).setProperty({ ctx: this.ctx, mouse: this.mouse }, true);
             var planet = new Planet(orbit, 13, time).setProperty({
-                tile: tile,
                 id: planetsInfo[i].id,
                 name: planetsInfo[i].name,
                 needShow: planetsInfo[i].needShow,

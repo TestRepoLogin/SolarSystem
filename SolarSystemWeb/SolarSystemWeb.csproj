@@ -167,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Readme\Elmah.txt" />
+    <Content Include="Content\images\orbit-default.png" />
     <Content Include="Content\images\problem.jpg" />
     <Content Include="Content\bootstrap-multiselect.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -207,6 +208,7 @@
     <Content Include="Content\bootswatch\yeti\bootstrap.min.css" />
     <Content Include="Content\images\planets.png" />
     <Content Include="Content\images\default.jpg" />
+    <Content Include="Content\images\saturn-transparent.png" />
     <Content Include="Content\images\sun.png" />
     <Content Include="Content\index.css" />
     <Content Include="Content\info.css" />
@@ -261,6 +263,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Application\ApplicationSettings.cs" />
     <Compile Include="Models\Application\CustomControllerFactory.cs" />
+    <Compile Include="Models\Application\DefultOrbitImage.cs" />
     <Compile Include="Models\Entities\SpaceObjectTypeDto.cs" />
     <Compile Include="Models\Exceptions\DeleteUserException.cs" />
     <Compile Include="Models\Exceptions\PermissionException.cs" />

@@ -41,8 +41,14 @@ namespace SolarSystemWeb.Controllers
                 return null;
             }
             
-        } 
-        
+        }
+
+        /// <summary>
+        /// Добавление.удаление правд администратора пользователю        
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="flag"></param>
+        /// <returns></returns>
         public async Task<JsonResult> ChangeAdminPermission(string userId, bool flag)
         {
             var result = flag ? await UserManager.AddToRoleAsync(userId, "Admin") : await UserManager.RemoveFromRoleAsync(userId, "Admin");

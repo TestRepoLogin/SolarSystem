@@ -74,6 +74,10 @@
                 </div>
             </div>
         }
+        else
+        {
+            @Html.HiddenFor(x => x.OwnerId)
+        }
         <div class="form-group">
             <label for="inputPassword" class="col-lg-2 control-label">Описание</label>
             <div class="col-lg-10">
@@ -99,6 +103,20 @@
                     </a>
                     &nbsp;
                     <span class='label label-success' id="upload-file-info"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword" class="col-lg-2 control-label">Изображение для схемы</label>
+            <div class="col-lg-10">
+                <div style="position: relative;">
+                    @Html.ValidationMessageFor(m => m.OrbitImage)
+                    <a class='btn btn-primary' href='javascript:;'>
+                        Выберите файл...
+                        <input type="file" name='orbitImg' style='position: absolute; z-index: 2; top: 0; left: 0; filter: alpha(opacity=0); -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; opacity: 0; background-color: transparent; color: transparent;' name="file_source" size="40" onchange='$("#upload-orbit-file-info").html($(this).val());'>
+                    </a>
+                    &nbsp;
+                    <span class='label label-success' id="upload-orbit-file-info"></span>
                 </div>
             </div>
         </div>

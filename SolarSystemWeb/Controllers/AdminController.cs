@@ -49,7 +49,7 @@ namespace SolarSystemWeb.Controllers
 
         [HttpGet]
         public ActionResult ChangeObject(int id)
-        {
+        {           
             var model = Repository.Get(id);
             ViewBag.types = new SelectList(TypesRepository.GetAll(), "Id", "Name");
             ViewBag.all = new SelectList(Repository.Get(x => x.Id != id), "Id", "Name");
@@ -57,11 +57,16 @@ namespace SolarSystemWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> ChangeObject(SpaceObjectDto model, HttpPostedFileBase  mainImg)
+        public async Task<ActionResult> ChangeObject(SpaceObjectDto model, HttpPostedFileBase  mainImg, HttpPostedFileBase orbitImg)
         {
             if (mainImg != null && mainImg.ContentLength > ApplicationSettings.Instance.MaxImageSize)
             {
                 ModelState.AddModelError("MainImage", $"Размер загружаемого изображения не должен превышать {ApplicationSettings.Instance.MaxImageSize} байт");
+            }
+
+            if (orbitImg != null && orbitImg.ContentLength > ApplicationSettings.Instance.MaxImageSize)
+            {
+                ModelState.AddModelError("OrbitImage", $"Размер загружаемого изображения не должен превышать {ApplicationSettings.Instance.MaxImageSize} байт");
             }
 
             if (ModelState.IsValid)
@@ -72,7 +77,13 @@ namespace SolarSystemWeb.Controllers
                     mainImg.InputStream.Read(model.MainImage, 0, (int)mainImg.InputStream.Length);
                 }
 
-                if(model.Id > 0)
+                if (orbitImg != null)
+                {
+                    model.OrbitImage = new byte[orbitImg.InputStream.Length];
+                    orbitImg.InputStream.Read(model.OrbitImage, 0, (int)orbitImg.InputStream.Length);
+                }
+
+                if (model.Id > 0)
                     await Repository.UpdateAsync(model);
                 else
                     await Repository.AddAsync(model);

@@ -83,8 +83,8 @@
           <Property Name="WikiLink" Type="nvarchar" MaxLength="400" Nullable="false" />
           <Property Name="MainImage" Type="image" />
           <Property Name="OrbitImage" Type="image" />
-          <Property Name="OrbitPeriod" Type="bigint" Nullable="false" />
           <Property Name="SiderealPeriod" Type="bigint" Nullable="false" />
+          <Property Name="OrbitPeriod" Type="bigint" />
         </EntityType>
         <EntityType Name="SpaceObjectType">
           <Key>
@@ -240,7 +240,7 @@
             <End Role="SpaceObjectType" EntitySet="SpaceObjectType" />
             <End Role="SpaceObject" EntitySet="SpaceObject" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="SpaceObjectType">
           <Key>
             <PropertyRef Name="Id" />
@@ -358,8 +358,8 @@
           <Property Name="WikiLink" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
           <Property Name="MainImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="OrbitImage" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="OrbitPeriod" Type="Int64" Nullable="false" />
           <Property Name="SiderealPeriod" Type="Int64" Nullable="false" />
+          <Property Name="OrbitPeriod" Type="Int64" />
           <NavigationProperty Name="SpaceObject1" Relationship="SolarSystemModel.FK__SpaceObje__Owner__35BCFE0A" FromRole="SpaceObject" ToRole="SpaceObject1" />
           <NavigationProperty Name="SpaceObject2" Relationship="SolarSystemModel.FK__SpaceObje__Owner__35BCFE0A" FromRole="SpaceObject1" ToRole="SpaceObject" />
           <NavigationProperty Name="SpaceObjectType" Relationship="SolarSystemModel.FK__SpaceObje__Space__164452B1" FromRole="SpaceObject" ToRole="SpaceObjectType" />
@@ -388,7 +388,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -471,8 +471,8 @@
           <EntitySetMapping Name="SpaceObject">
             <EntityTypeMapping TypeName="SolarSystemModel.SpaceObject">
               <MappingFragment StoreEntitySet="SpaceObject">
-                <ScalarProperty Name="SiderealPeriod" ColumnName="SiderealPeriod" />
                 <ScalarProperty Name="OrbitPeriod" ColumnName="OrbitPeriod" />
+                <ScalarProperty Name="SiderealPeriod" ColumnName="SiderealPeriod" />
                 <ScalarProperty Name="OrbitImage" ColumnName="OrbitImage" />
                 <ScalarProperty Name="MainImage" ColumnName="MainImage" />
                 <ScalarProperty Name="WikiLink" ColumnName="WikiLink" />

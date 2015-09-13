@@ -1,0 +1,44 @@
+﻿@using System.Web.Optimization
+@model IEnumerable<SolarSystemWeb.Models.ViewModels.UserModel>
+@{
+    ViewBag.Title = "Пользователи";
+    Layout = "../Admin/AdminLayout.cshtml";
+}
+
+@Scripts.Render("~/bundles/admin_objects")
+
+<script>
+    $().ready(
+    function () {
+        $('.roles').addClass('active');
+    });
+</script>
+
+<h2>Пользователи</h2>
+
+<div id="messages" style="width: 40%;"></div>
+
+<table class="table table-striped table-hover table-nonfluid" style="width: 45% !important;">
+    <thead>
+        <tr class="info">
+            <th>Название</th>
+            <th>Роли</th>
+            <th>Права адмиинистратора</th>
+            <th>Удалить</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="tr_@item.Id">
+                <td>@item.Name</td>
+                <td>@item.RolesString</td>
+                <td>
+                    <input type="checkbox" onchange="setAdminPermission('@item.Id', $(this).is(':checked')); return false;"  style="float: left; margin-right: 10px;" @(item.Roles.Any(x => x.Name == "Admin") ? "checked" : "")/>                    
+                </td>
+                <td><a onclick="onDeleteUser('@item.Id', 'tr_@item.Id');return false;" href="javascript:void(0);">Удалить</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
