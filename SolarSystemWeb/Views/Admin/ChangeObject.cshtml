@@ -38,6 +38,8 @@
                 @Html.EditorFor(x => x.Radius, new {htmlattributes = new {@class = "form-control", placeholder = "Радиус"}})
             </div>
         </div>
+        @if (!Model.IsSun)
+        {
         <div class="form-group">
             <label for="textArea" class="col-lg-2 control-label">Орбита</label>
             <div class="col-lg-10">
@@ -45,8 +47,7 @@
                 @Html.EditorFor(x => x.Distance, new {htmlattributes = new {@class = "form-control", placeholder = "Радиус орбиты"}})
             </div>
         </div>
-        @if (!Model.IsSun)
-        {
+        
             <div class="form-group">
                 <label for="textArea" class="col-lg-2 control-label">Период обращения</label>
                 <div class="col-lg-10">
@@ -54,6 +55,10 @@
                     @Html.EditorFor(x => x.OrbitPeriod, new {htmlattributes = new {@class = "form-control", placeholder = "Период обращения"}})
                 </div>
             </div>
+        }
+        else
+        {
+            @Html.HiddenFor(x => x.Distance)
         }
         <div class="form-group">
             <label for="textArea" class="col-lg-2 control-label">Прод-ть суток</label>

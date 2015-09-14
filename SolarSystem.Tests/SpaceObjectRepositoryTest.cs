@@ -25,7 +25,9 @@ namespace SolarSystem.Tests
             Distance = 0,
             Mass = 0,
             Radius = 0,  
-            WikiLink = "some link",                       
+            WikiLink = "some link",  
+            OrbitPeriod = 1,
+            SiderealPeriod = 1
         };
 
         [TestMethod]
