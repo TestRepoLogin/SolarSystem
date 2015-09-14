@@ -5,7 +5,7 @@
 @Styles.Render("~/Styles/info")
 
 <div >
-    <h2>@Model.Name</h2>
+    <h3>@Model.Name</h3>
 
     <table>
         <tr>
@@ -45,9 +45,10 @@
         </tr>
     </table>
 
-    <p style="font-size: 14px; line-height: 1.5;">@Model.Description</p>
-    
+    <div style="overflow-y: auto; font-size: 14px; line-height: 1.5; max-height: 330px; margin-bottom: 10px">
+        @Model.Description
+    </div>
     <p>
-        <a class="btn btn-primary btn-lg" target="_blank" href="@Model.WikiLink" >Больше информации</a>
+        <a class="btn btn-primary btn-lg" target="_blank" href="@Model.WikiLink">Больше информации</a>
     </p>
-</div>
+    </div>

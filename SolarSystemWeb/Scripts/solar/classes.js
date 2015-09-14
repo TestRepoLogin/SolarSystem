@@ -123,7 +123,7 @@ function Planet(orbit, radius, time) {
     this.orbit.setProperty({ 'planet': this });
     this.orbitVisibility = true;
 
-    this.getImageSize = function() {
+    var getImageSize = function (rad) {
         var sizesMap = [
             {
                 imageSizesRange: { min: 9, max: 9.5 },
@@ -158,12 +158,12 @@ function Planet(orbit, radius, time) {
                 realSizesRange: { min: 3500, max: 7000 }   // земля
             },
             {
-                imageSizesRange: { min: 48, max: 54 },
+                imageSizesRange: { min: 42, max: 43 },
                 realSizesRange: { min: 24000, max: 26000 }   // уран
             },
             {
-                imageSizesRange: { min: 60, max: 65 },
-                realSizesRange: { min: 50000, max: 70000 }   // юпитер
+                imageSizesRange: { min: 50, max: 55 },
+                realSizesRange: { min: 55000, max: 70000 }   // юпитер
             },
             {
                 imageSizesRange: { min: 80, max: null },
@@ -174,15 +174,15 @@ function Planet(orbit, radius, time) {
         var res = 30;
 
         for (var i = 0; i < sizesMap.length; ++i) {
-            if (this.radius > sizesMap[i].realSizesRange.min &&
+            if (rad > sizesMap[i].realSizesRange.min &&
                 sizesMap[i].realSizesRange.max === null)
                 return sizesMap[i].imageSizesRange.min / 2.7;
 
-            if (this.radius > sizesMap[i].realSizesRange.min &&
-                this.radius <= sizesMap[i].realSizesRange.max) {
+            if (rad > sizesMap[i].realSizesRange.min &&
+                rad <= sizesMap[i].realSizesRange.max) {
                 var deltaReal = sizesMap[i].realSizesRange.max - sizesMap[i].realSizesRange.min;
                 var deltaImage = sizesMap[i].imageSizesRange.max - sizesMap[i].imageSizesRange.min;
-                var deltaSize = radius - sizesMap[i].realSizesRange.min;
+                var deltaSize = rad - sizesMap[i].realSizesRange.min;
                 var imageAddition = deltaSize / deltaReal * deltaImage;
 
                 return (sizesMap[i].imageSizesRange.min + imageAddition) / 2.7;
@@ -191,8 +191,72 @@ function Planet(orbit, radius, time) {
 
         return res;
     }
-       
-    this.radius = this.getImageSize();
+    
+    this.radius = getImageSize(radius);
+
+    var getOrbitRadius = function (rad) {
+        var sizesMap = [
+            {
+                imageSizesRange: { min: 13, max: 55 },
+                realSizesRange: { min: 15000, max: 2000000 }       // спутники
+            },
+            {
+                imageSizesRange: { min: 10, max: 115 },
+                realSizesRange: { min: 20000000, max: 160000000 }       // меркурий, венера, земля
+            },
+            {
+                imageSizesRange: { min: 127, max: 150 },
+                realSizesRange: { min: 160000000, max: 600000000 }       // марс и астероиды
+            },
+            {
+                imageSizesRange: { min: 180, max: 200 },
+                realSizesRange: { min: 700000000, max: 800000000 }       // юпитер
+            },
+            {
+                imageSizesRange: { min: 225, max: 250 },
+                realSizesRange: { min: 1000000000, max: 1500000000 }   // сатурн
+            },
+            {
+                imageSizesRange: { min: 280, max: 290 },
+                realSizesRange: { min: 2000000000, max: 3200000000 }   // уран
+            },
+            {
+                imageSizesRange: { min: 310, max: 315 },
+                realSizesRange: { min: 4000000000, max: 4600000000 }   // нептун
+            },
+            {
+                imageSizesRange: { min: 335, max: 340 },
+                realSizesRange: { min: 4900000000, max: null }   // плутон
+            },           
+        ];
+
+        if (rad === 0)
+            return 0;
+
+        var res = 50;
+
+        for (var i = 0; i < sizesMap.length; ++i) {
+            
+            if (rad > sizesMap[i].realSizesRange.min &&
+                sizesMap[i].realSizesRange.max === null)
+                return sizesMap[i].imageSizesRange.min;
+
+            if (rad > sizesMap[i].realSizesRange.min &&
+                rad <= sizesMap[i].realSizesRange.max) {
+                var deltaReal = sizesMap[i].realSizesRange.max - sizesMap[i].realSizesRange.min;
+                var deltaImage = sizesMap[i].imageSizesRange.max - sizesMap[i].imageSizesRange.min;
+                var deltaSize = rad - sizesMap[i].realSizesRange.min;
+                var imageAddition = deltaSize / deltaReal * deltaImage;
+
+                return (sizesMap[i].imageSizesRange.min + imageAddition);
+            }
+        }
+
+        return res;
+    }
+
+    this.realDistance = getOrbitRadius(orbit.radius);
+    this.orbit.radius = getOrbitRadius(orbit.radius);
 };
 
 Planet.prototype = Object.create(Base.prototype);

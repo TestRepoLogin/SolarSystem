@@ -75,7 +75,8 @@ App.prototype = {
 
             im.add('/Image/ShowPng/' + planetsInfo[i].id, planetsInfo[i].id);            
 
-            var distance = planetsInfo[i].isSun ? 0 : 10 + planetsInfo[i].distance * 32;
+            //var distance = planetsInfo[i].isSun ? 0 : 10 + planetsInfo[i].distance * 32;
+            var distance = planetsInfo[i].distance;
 
             if (planetsInfo[i].isSun) {
                 sunId = planetsInfo[i].id;
@@ -90,7 +91,8 @@ App.prototype = {
                 ctx: this.ctx
             }, true);
             this.planets.push(planet);
-            console.log(planet.name + ' ' + planetsInfo[i].radius.toFixed(1) + ' ' + planet.radius.toFixed(1));
+            console.log(planet.name + ' radiusRaw: ' + planetsInfo[i].radius.toFixed(1) + ' radius: ' + planet.radius.toFixed(1) +
+                                      ' distance: ' + distance.toFixed(1) + ' realDistance: ' + planet.realDistance.toFixed(1));
             
             time += 20;
         }        
@@ -164,6 +166,6 @@ App.prototype = {
         } else {
             document.body.style.cursor = 'default';
         }
-        mouse.pressed = false;
+        mouse.pressed = false;       
     }    
 }
