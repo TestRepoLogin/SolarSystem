@@ -4,8 +4,12 @@ namespace SolarSystemWeb.Models.Helpers
 {
     public static class TimespanHelper
     {
-        public static string ToReadableString(this TimeSpan span)
+        public static string ToReadableString(this TimeSpan? arg)
         {
+            if (!arg.HasValue)
+                return "Нет данных";
+
+            var span = arg.Value;
             int years = span.Days / 365;
             span = span.Subtract(TimeSpan.FromDays(365 * years));
 

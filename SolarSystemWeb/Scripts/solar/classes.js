@@ -82,6 +82,29 @@ function Orbit(center, radius) {
 
 Orbit.prototype = Object.create(Base.prototype);
 
+function drawEllipseByCenter(ctx, cx, cy, w, h) {
+    drawEllipse(ctx, cx - w / 2.0, cy - h / 2.0, w, h);
+}
+
+function drawEllipse(ctx, x, y, w, h) {
+    var kappa = .5522848,
+        ox = (w / 2) * kappa, // control point offset horizontal
+        oy = (h / 2) * kappa, // control point offset vertical
+        xe = x + w,           // x-end
+        ye = y + h,           // y-end
+        xm = x + w / 2,       // x-middle
+        ym = y + h / 2;       // y-middle
+
+    ctx.beginPath();
+    ctx.moveTo(x, ym);
+    ctx.bezierCurveTo(x, ym - oy, xm - ox, y, xm, y);
+    ctx.bezierCurveTo(xm + ox, y, xe, ym - oy, xe, ym);
+    ctx.bezierCurveTo(xe, ym + oy, xm + ox, ye, xm, ye);
+    ctx.bezierCurveTo(xm - ox, ye, x, ym + oy, x, ym);
+    //ctx.closePath(); // not used correctly, see comments (use to close off open path)
+    ctx.stroke();
+}
+
 Orbit.prototype.draw =
     function () {
         var ctx = this.ctx;
@@ -92,6 +115,7 @@ Orbit.prototype.draw =
             ctx.beginPath();
             ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2, true);
             ctx.closePath();
+            //drawEllipseByCenter(ctx, this.center.x, this.center.y, this.radius, this.radius * 1.5);
             ctx.stroke();
 
             ctx.clearRect(this.planet.pos.x - this.planet.radius, this.planet.pos.y - this.planet.radius,
@@ -101,8 +125,9 @@ Orbit.prototype.draw =
             ctx.lineWidth = 1;
             ctx.strokeStyle = 'rgba(0,192,255,0.5)';
             ctx.beginPath();
-            ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2, true);
+            ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2, true);            
             ctx.closePath();
+            //drawEllipseByCenter(ctx, this.center.x, this.center.y, this.radius, this.radius * 1.5);
             ctx.stroke();
         }
     }
@@ -197,7 +222,7 @@ function Planet(orbit, radius, time) {
     var getOrbitRadius = function (rad) {
         var sizesMap = [
             {
-                imageSizesRange: { min: 13, max: 55 },
+                imageSizesRange: { min: 16, max: 55 },
                 realSizesRange: { min: 15000, max: 2000000 }       // спутники
             },
             {
@@ -205,27 +230,27 @@ function Planet(orbit, radius, time) {
                 realSizesRange: { min: 20000000, max: 160000000 }       // меркурий, венера, земля
             },
             {
-                imageSizesRange: { min: 127, max: 150 },
+                imageSizesRange: { min: 127, max: 180 },
                 realSizesRange: { min: 160000000, max: 600000000 }       // марс и астероиды
             },
             {
-                imageSizesRange: { min: 180, max: 200 },
+                imageSizesRange: { min: 200, max: 215 },
                 realSizesRange: { min: 700000000, max: 800000000 }       // юпитер
             },
             {
-                imageSizesRange: { min: 225, max: 250 },
+                imageSizesRange: { min: 280, max: 285 },
                 realSizesRange: { min: 1000000000, max: 1500000000 }   // сатурн
             },
             {
-                imageSizesRange: { min: 280, max: 290 },
+                imageSizesRange: { min: 315, max: 320 },
                 realSizesRange: { min: 2000000000, max: 3200000000 }   // уран
             },
             {
-                imageSizesRange: { min: 310, max: 315 },
+                imageSizesRange: { min: 340, max: 345 },
                 realSizesRange: { min: 4000000000, max: 4600000000 }   // нептун
             },
             {
-                imageSizesRange: { min: 335, max: 340 },
+                imageSizesRange: { min: 370, max: 375 },
                 realSizesRange: { min: 4900000000, max: null }   // плутон
             },           
         ];

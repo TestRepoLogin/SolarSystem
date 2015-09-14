@@ -31,8 +31,8 @@ namespace DataLayer
         public string WikiLink { get; set; }
         public byte[] MainImage { get; set; }
         public byte[] OrbitImage { get; set; }
-        public long SiderealPeriod { get; set; }
         public Nullable<long> OrbitPeriod { get; set; }
+        public Nullable<long> SiderealPeriod { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SpaceObject> SpaceObject1 { get; set; }

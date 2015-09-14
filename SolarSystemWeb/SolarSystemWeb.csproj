@@ -264,6 +264,7 @@
     <Compile Include="Models\Entities\SpaceObjectTypeDto.cs" />
     <Compile Include="Models\Exceptions\DeleteUserException.cs" />
     <Compile Include="Models\Exceptions\PermissionException.cs" />
+    <Compile Include="Models\Helpers\NumberHelper.cs" />
     <Compile Include="Models\Helpers\TimespanExtension.cs" />
     <Compile Include="Models\Identity\ApplicationContext.cs" />
     <Compile Include="Models\Identity\ApplicationRole.cs" />

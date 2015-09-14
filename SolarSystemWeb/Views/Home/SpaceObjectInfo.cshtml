@@ -19,7 +19,7 @@
                         Тип:
                     </li>
                     <li class="list-group-item">
-                        <span class="badge">@Model.Mass кг.</span>
+                        <span class="badge">@Model.Mass.ExtractExponentInfo().Item1·10<sup style="vertical-align: super; font-size: 9px; line-height: 1em;">@Model.Mass.ExtractExponentInfo().Item2</sup> кг</span>
                         Масса:
                     </li>
                     <li class="list-group-item">
@@ -28,7 +28,7 @@
                     </li>
                     <li class="list-group-item">
                         <span class="badge">
-                            @(!Model.IsSun ? Model.Distance + " км." : "-")                                
+                            @(!Model.IsSun ? Model.Distance.ToStringWithDelimiters() + " км." : "-")                                
                         </span>
                         Расстояние до Солнца:
                     </li>

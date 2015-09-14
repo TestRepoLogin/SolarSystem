@@ -28,10 +28,9 @@ namespace SolarSystemWeb.Models.Entities
         
         [Range(1, long.MaxValue, ErrorMessage = "Значение должно быть больше нуля")]
         public long? OrbitPeriod { get; set; }
-
-        [Required(ErrorMessage = "Нужно указать продолжительность суток")]
+        
         [Range(1, long.MaxValue, ErrorMessage = "Значение должно быть больше нуля")]
-        public long SiderealPeriod { get; set; }
+        public long? SiderealPeriod { get; set; }
 
         [Required(ErrorMessage = "Нужно указать, чей это спутник")]
         public int OwnerId { get; set; }
@@ -47,8 +46,9 @@ namespace SolarSystemWeb.Models.Entities
 
         public bool IsSun => Id > 0 && OwnerId == Id;
 
-        public TimeSpan OrbitPeriodSpan => TimeSpan.FromSeconds(OrbitPeriod ?? 0);
+        public TimeSpan? OrbitPeriodSpan => OrbitPeriod == null ? (TimeSpan?)null : TimeSpan.FromSeconds(OrbitPeriod.Value);
 
-        public TimeSpan SiderealPeriodSpan => TimeSpan.FromSeconds(SiderealPeriod);        
+        public TimeSpan? SiderealPeriodSpan => SiderealPeriod == null ? (TimeSpan?)null : TimeSpan.FromSeconds(SiderealPeriod.Value);
+
     }    
 }
