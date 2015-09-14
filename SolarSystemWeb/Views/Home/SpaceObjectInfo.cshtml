@@ -27,7 +27,9 @@
                         Радиус:
                     </li>
                     <li class="list-group-item">
-                        <span class="badge">@Model.Distance км.</span>
+                        <span class="badge">
+                            @(!Model.IsSun ? Model.Distance + " км." : "-")                                
+                        </span>
                         Расстояние до Солнца:
                     </li>
                     <li class="list-group-item">

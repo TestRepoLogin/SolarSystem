@@ -27,6 +27,7 @@
                     var obj = {
                         id: @item.Id,
                         name: '@item.Name',
+                        radius: @item.Radius.ToString("F").Replace(',', '.'),
                         distance: @item.Distance.ToString("F").Replace(',', '.'),
                         isSun: @item.IsSun.ToString().ToLower(),
                         needShow: true,

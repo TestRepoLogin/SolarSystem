@@ -82,7 +82,7 @@ App.prototype = {
             }
 
             var orbit = new Orbit(globalCenter.clone(), distance).setProperty({ ctx: this.ctx, mouse: this.mouse }, true);
-            var planet = new Planet(orbit, 13, time).setProperty({
+            var planet = new Planet(orbit, planetsInfo[i].radius, time).setProperty({
                 id: planetsInfo[i].id,
                 name: planetsInfo[i].name,
                 needShow: planetsInfo[i].needShow,
@@ -90,6 +90,7 @@ App.prototype = {
                 ctx: this.ctx
             }, true);
             this.planets.push(planet);
+            console.log(planet.name + ' ' + planetsInfo[i].radius.toFixed(1) + ' ' + planet.radius.toFixed(1));
             
             time += 20;
         }        

@@ -122,6 +122,77 @@ function Planet(orbit, radius, time) {
     this.ctx;
     this.orbit.setProperty({ 'planet': this });
     this.orbitVisibility = true;
+
+    this.getImageSize = function() {
+        var sizesMap = [
+            {
+                imageSizesRange: { min: 9, max: 9.5 },
+                realSizesRange: { min: 0, max: 200 }       // икар
+            },
+            {
+                imageSizesRange: { min: 10, max: 11 },
+                realSizesRange: { min: 200, max: 500 }       // церера
+            },
+            {
+                imageSizesRange: { min: 12, max: 12 },
+                realSizesRange: { min: 500, max: 1000 }       // 
+            },
+            {
+                imageSizesRange: { min: 13, max: 15 },
+                realSizesRange: { min: 1000, max: 1500 }   // плутон
+            },
+            {
+                imageSizesRange: { min: 16, max: 18 },
+                realSizesRange: { min: 1500, max: 2000 }   // луна
+            },
+            {
+                imageSizesRange: { min: 20, max: 23 },
+                realSizesRange: { min: 2000, max: 2750 }   // меркурий
+            },
+            {
+                imageSizesRange: { min: 24, max: 28 },
+                realSizesRange: { min: 2750, max: 3500 }   // марс
+            },
+            {
+                imageSizesRange: { min: 33, max: 35 },
+                realSizesRange: { min: 3500, max: 7000 }   // земля
+            },
+            {
+                imageSizesRange: { min: 48, max: 54 },
+                realSizesRange: { min: 24000, max: 26000 }   // уран
+            },
+            {
+                imageSizesRange: { min: 60, max: 65 },
+                realSizesRange: { min: 50000, max: 70000 }   // юпитер
+            },
+            {
+                imageSizesRange: { min: 80, max: null },
+                realSizesRange: { min: 500000, max: null }   // солнце
+            },
+        ];
+
+        var res = 30;
+
+        for (var i = 0; i < sizesMap.length; ++i) {
+            if (this.radius > sizesMap[i].realSizesRange.min &&
+                sizesMap[i].realSizesRange.max === null)
+                return sizesMap[i].imageSizesRange.min / 2.7;
+
+            if (this.radius > sizesMap[i].realSizesRange.min &&
+                this.radius <= sizesMap[i].realSizesRange.max) {
+                var deltaReal = sizesMap[i].realSizesRange.max - sizesMap[i].realSizesRange.min;
+                var deltaImage = sizesMap[i].imageSizesRange.max - sizesMap[i].imageSizesRange.min;
+                var deltaSize = radius - sizesMap[i].realSizesRange.min;
+                var imageAddition = deltaSize / deltaReal * deltaImage;
+
+                return (sizesMap[i].imageSizesRange.min + imageAddition) / 2.7;
+            }
+        }
+
+        return res;
+    }
+       
+    this.radius = this.getImageSize();
 };
 
 Planet.prototype = Object.create(Base.prototype);
@@ -169,8 +240,7 @@ Planet.prototype.render =
         }
         
         if (typeof this.tile !== 'undefined') {
-            this.tile.draw(this.pos.x, this.pos.y, // Центр тайла
-                this.orbit.center, this.radius);
+            this.tile.draw(this.pos.x, this.pos.y, this.orbit.center, this.radius);
         }
     }
 
@@ -209,12 +279,12 @@ function Tile(ctx, img, x, y, w, h) {
 };
 
 Tile.prototype = {
-    draw: function (x, y, p) {
+    draw: function (x, y, p, radius) {
         var ctx = this.ctx;
         ctx.save();
         ctx.translate(x, y);
         ctx.rotate(Math.atan2(p.y - y, p.x - x) + Math.PI / 2);
-        this.ctx.drawImage(this.img, this.x, this.y, this.width, this.height, -12, -12, 24, 24);
+        this.ctx.drawImage(this.img, this.x, this.y, this.width, this.height, -radius, -radius, 2*radius, 2*radius);
         ctx.restore();
     }
 };
