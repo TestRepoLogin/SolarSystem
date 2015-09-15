@@ -102,6 +102,7 @@
   <ItemGroup>
     <None Include="App.Config" />
     <None Include="packages.config" />
+    <None Include="SolarSystem.bak" />
     <None Include="SpaceModel.edmx.diagram">
       <DependentUpon>SpaceModel.edmx</DependentUpon>
     </None>
@@ -117,7 +118,6 @@
       <DependentUpon>SpaceModel.edmx</DependentUpon>
       <LastGenOutput>SpaceModel.cs</LastGenOutput>
     </Content>
-    <Content Include="script.sql" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
