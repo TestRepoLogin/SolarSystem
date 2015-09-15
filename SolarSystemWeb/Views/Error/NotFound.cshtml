@@ -2,7 +2,7 @@
 @model string
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Страница не найдена";
     Layout = "../Shared/_Layout.cshtml";
 }
 
@@ -15,5 +15,6 @@
         <p class="margin">Страница "@Model" не найдена</p>
         <img src="../../Content/images/problem.jpg" class="margin img" />
         <p class="margin">Хьюстон, у нас проблема. Похоже, мы не можем найти эту страницу.</p>
+        <a class="btn btn-success margin" href="@Url.Action("Index", "Home")">На главную</a>
     </div>
 </div>

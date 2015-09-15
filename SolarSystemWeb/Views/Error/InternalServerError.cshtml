@@ -2,7 +2,7 @@
 @model dynamic
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Ошибка";
     Layout = "../Shared/_Layout.cshtml";
 }
 
@@ -14,6 +14,8 @@
         <h1 class="margin">500</h1>
         <p class="margin">Произошла ошибка</p>
         <img src="../../Content/images/problem.jpg" class="margin img" />
-        <p class="margin">Хьюстон, у нас проблема.</p>
+        <p class="margin">Хьюстон, у нас проблема. Подробности можно узнать на странице администрирования.</p>
+        <p class="margin">Если вы, конечно, админ :)</p>
+        <a class="btn btn-success margin" href="@Url.Action("Index", "Home")">На главную</a>
     </div>
 </div>
