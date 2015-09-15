@@ -1,2 +1,2 @@
 # SolarSystem
-Небольшой тестовый ASP.NET MVC проект
+Небольшой тестовый проект на ASP>NET MVC 5 + Entity Framework для демонстрационных целей.
