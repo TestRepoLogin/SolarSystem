@@ -19,7 +19,16 @@
 
 <div id="messages"  style="width: 40%;"></div>
 
-<a href="@Url.Action("CreateObject")" class="btn btn-info">Создать</a>
+<form action="@Url.Action("Index")">
+    <table>
+        <tr>
+            <td><a href="@Url.Action("CreateObject")" class="btn btn-info" style="margin-right: 10px;">Создать</a></td>
+            <td style="padding-right: 10px;">@Html.DropDownList("typeId", (List<SelectListItem>)ViewBag.types, new { @class = "form-control" })    </td>
+            <td><input type='submit' class="btn btn-success" value="Применить" /></td>
+        </tr>
+    </table>
+</form>
+
 <br/>
 <br/>
 

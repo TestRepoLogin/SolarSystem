@@ -24,11 +24,18 @@ namespace SolarSystemWeb.Controllers
 
         protected readonly ICrudRepository<SpaceObjectTypeDto, SpaceObjectType> TypesRepository;
 
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? typeId)
         {
             ViewBag.UserName = HttpContext.User.Identity.Name;
-            var model = await Repository.GetAllAsync();
-            return View(model);
+
+            var typesTask = TypesRepository.GetAllAsync();
+            var allTask = typeId.HasValue ? Repository.GetAsync(x => x.SpaceObjectTypeId == typeId.Value): Repository.GetAllAsync();
+            await Task.WhenAll(typesTask, allTask);
+
+            var items = new List<SelectListItem> { new SelectListItem { Value = "null", Text = "Все типы", Selected = true } };
+            items.AddRange(typesTask.Result.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Name }));
+            ViewBag.types = items;
+            return View(allTask.Result);
         }
 
         public async Task<ActionResult> ObjectTypes()

@@ -21,11 +21,14 @@ namespace SolarSystemWeb.Models.Entities
         [Required(ErrorMessage = "Нужно указать радиус орбиты")]
         [Range(1, double.MaxValue, ErrorMessage = "Значение должно быть больше нуля")]
         public double Distance { get; set; }
+       
+        [Range(1, double.MaxValue, ErrorMessage = "Значение должно быть больше нуля")]
+        public double? SecondRadius { get; set; }
 
         [Required(ErrorMessage = "Нужно указать радиус")]
         [Range(1, double.MaxValue, ErrorMessage = "Значение должно быть больше нуля")]
         public double Radius { get; set; }
-        
+
         [Range(1, long.MaxValue, ErrorMessage = "Значение должно быть больше нуля")]
         public long? OrbitPeriod { get; set; }
         

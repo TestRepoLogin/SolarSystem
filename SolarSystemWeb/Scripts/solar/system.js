@@ -51,8 +51,7 @@ App.prototype = {
                     self.imagesLoaded++;                    
                     
                     var planet = findById(that.planets, name);                                       
-                    var tile = planet.isSun ? new Tile(that.ctx, this._resources['sun'], 0, 0, 100, 100) :
-                                                      new Tile(that.ctx, that._resources[planet.id], 0, 0, this.width, this.height);
+                    var tile = new Tile(that.ctx, that._resources[planet.id], 0, 0, this.width, this.height);
 
                     planet.setProperty({ tile: tile }, true);
 
@@ -75,25 +74,23 @@ App.prototype = {
 
             im.add('/Image/ShowPng/' + planetsInfo[i].id, planetsInfo[i].id);            
 
-            //var distance = planetsInfo[i].isSun ? 0 : 10 + planetsInfo[i].distance * 32;
-            var distance = planetsInfo[i].distance;
-
             if (planetsInfo[i].isSun) {
                 sunId = planetsInfo[i].id;
             }
-
-            var orbit = new Orbit(globalCenter.clone(), distance).setProperty({ ctx: this.ctx, mouse: this.mouse }, true);
-            var planet = new Planet(orbit, planetsInfo[i].radius, time).setProperty({
+           
+            var orbit = new Orbit(globalCenter.clone(),
+                                  planetsInfo[i].distance,
+                                  planetsInfo[i].secondRadius
+                                 ).setProperty({ ctx: this.ctx, mouse: this.mouse }, true);
+            var planet = new Planet(orbit, planetsInfo[i].radius, planetsInfo[i].secondradius, time).setProperty({
                 id: planetsInfo[i].id,
-                name: planetsInfo[i].name,
+                name: planetsInfo[i].name,  
                 needShow: planetsInfo[i].needShow,
                 ownerId: planetsInfo[i].ownerId,
                 ctx: this.ctx
             }, true);
             this.planets.push(planet);
-            console.log(planet.name + ' radiusRaw: ' + planetsInfo[i].radius.toFixed(1) + ' radius: ' + planet.radius.toFixed(1) +
-                                      ' distance: ' + distance.toFixed(1) + ' realDistance: ' + planet.realDistance.toFixed(1));
-            
+                        
             time += 20;
         }        
         

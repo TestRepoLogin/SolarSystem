@@ -41,20 +41,27 @@
         @if (!Model.IsSun)
         {
         <div class="form-group">
-            <label for="textArea" class="col-lg-2 control-label">Орбита</label>
+            <label for="textArea" class="col-lg-2 control-label">Главная орбита</label>
             <div class="col-lg-10">
                 @Html.ValidationMessageFor(m => m.Distance)
                 @Html.EditorFor(x => x.Distance, new {htmlattributes = new {@class = "form-control", placeholder = "Радиус орбиты"}})
             </div>
         </div>
-        
-            <div class="form-group">
-                <label for="textArea" class="col-lg-2 control-label">Период обращения</label>
-                <div class="col-lg-10">
-                    @Html.ValidationMessageFor(m => m.OrbitPeriod)
-                    @Html.EditorFor(x => x.OrbitPeriod, new {htmlattributes = new {@class = "form-control", placeholder = "Период обращения"}})
-                </div>
+        <div class="form-group">
+            <label for="textArea" class="col-lg-2 control-label">Дополнительная орбита</label>
+            <div class="col-lg-10">
+                @Html.ValidationMessageFor(m => m.SecondRadius)
+                @Html.EditorFor(x => x.SecondRadius, new { htmlattributes = new { @class = "form-control", placeholder = "Радиус орбиты" } })
             </div>
+        </div>
+
+        <div class="form-group">
+            <label for="textArea" class="col-lg-2 control-label">Период обращения</label>
+            <div class="col-lg-10">
+                @Html.ValidationMessageFor(m => m.OrbitPeriod)
+                @Html.EditorFor(x => x.OrbitPeriod, new {htmlattributes = new {@class = "form-control", placeholder = "Период обращения"}})
+            </div>
+        </div>
         }
         else
         {

@@ -85,6 +85,7 @@
           <Property Name="OrbitImage" Type="image" />
           <Property Name="OrbitPeriod" Type="bigint" />
           <Property Name="SiderealPeriod" Type="bigint" />
+          <Property Name="SecondRadius" Type="float" />
         </EntityType>
         <EntityType Name="SpaceObjectType">
           <Key>
@@ -363,6 +364,7 @@
           <NavigationProperty Name="SpaceObject1" Relationship="SolarSystemModel.FK__SpaceObje__Owner__35BCFE0A" FromRole="SpaceObject" ToRole="SpaceObject1" />
           <NavigationProperty Name="SpaceObject2" Relationship="SolarSystemModel.FK__SpaceObje__Owner__35BCFE0A" FromRole="SpaceObject1" ToRole="SpaceObject" />
           <NavigationProperty Name="SpaceObjectType" Relationship="SolarSystemModel.FK__SpaceObje__Space__164452B1" FromRole="SpaceObject" ToRole="SpaceObjectType" />
+          <Property Name="SecondRadius" Type="Double" />
         </EntityType>
         <Association Name="FK__SpaceObje__Owner__35BCFE0A">
           <End Type="SolarSystemModel.SpaceObject" Role="SpaceObject" Multiplicity="1" />
@@ -471,6 +473,7 @@
           <EntitySetMapping Name="SpaceObject">
             <EntityTypeMapping TypeName="SolarSystemModel.SpaceObject">
               <MappingFragment StoreEntitySet="SpaceObject">
+                <ScalarProperty Name="SecondRadius" ColumnName="SecondRadius" />
                 <ScalarProperty Name="SiderealPeriod" ColumnName="SiderealPeriod" />
                 <ScalarProperty Name="OrbitPeriod" ColumnName="OrbitPeriod" />
                 <ScalarProperty Name="OrbitImage" ColumnName="OrbitImage" />

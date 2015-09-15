@@ -33,6 +33,7 @@ namespace DataLayer
         public byte[] OrbitImage { get; set; }
         public Nullable<long> OrbitPeriod { get; set; }
         public Nullable<long> SiderealPeriod { get; set; }
+        public Nullable<double> SecondRadius { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SpaceObject> SpaceObject1 { get; set; }

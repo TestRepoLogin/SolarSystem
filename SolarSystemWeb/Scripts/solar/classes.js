@@ -71,9 +71,10 @@ MouseController.prototype = {
     }
 };
 
-function Orbit(center, radius) {
+function Orbit(center, radius, secondradius) {
     this.center = center;
     this.radius = radius;
+    this.secondradius = secondradius || radius;
 
     this.planet = null;
     this.ctx = null;
@@ -82,29 +83,6 @@ function Orbit(center, radius) {
 
 Orbit.prototype = Object.create(Base.prototype);
 
-function drawEllipseByCenter(ctx, cx, cy, w, h) {
-    drawEllipse(ctx, cx - w / 2.0, cy - h / 2.0, w, h);
-}
-
-function drawEllipse(ctx, x, y, w, h) {
-    var kappa = .5522848,
-        ox = (w / 2) * kappa, // control point offset horizontal
-        oy = (h / 2) * kappa, // control point offset vertical
-        xe = x + w,           // x-end
-        ye = y + h,           // y-end
-        xm = x + w / 2,       // x-middle
-        ym = y + h / 2;       // y-middle
-
-    ctx.beginPath();
-    ctx.moveTo(x, ym);
-    ctx.bezierCurveTo(x, ym - oy, xm - ox, y, xm, y);
-    ctx.bezierCurveTo(xm + ox, y, xe, ym - oy, xe, ym);
-    ctx.bezierCurveTo(xe, ym + oy, xm + ox, ye, xm, ye);
-    ctx.bezierCurveTo(xm - ox, ye, x, ym + oy, x, ym);
-    //ctx.closePath(); // not used correctly, see comments (use to close off open path)
-    ctx.stroke();
-}
-
 Orbit.prototype.draw =
     function () {
         var ctx = this.ctx;
@@ -112,10 +90,10 @@ Orbit.prototype.draw =
         if (hover) {
             ctx.lineWidth = 2;
             ctx.strokeStyle = 'rgb(0,192,255)';
+
             ctx.beginPath();
-            ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2, true);
-            ctx.closePath();
-            //drawEllipseByCenter(ctx, this.center.x, this.center.y, this.radius, this.radius * 1.5);
+            ctx.ellipse(this.center.x, this.center.y, this.radius, this.secondradius, 0, 0, 2 * Math.PI);
+
             ctx.stroke();
 
             ctx.clearRect(this.planet.pos.x - this.planet.radius, this.planet.pos.y - this.planet.radius,
@@ -125,17 +103,17 @@ Orbit.prototype.draw =
             ctx.lineWidth = 1;
             ctx.strokeStyle = 'rgba(0,192,255,0.5)';
             ctx.beginPath();
-            ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2, true);            
-            ctx.closePath();
-            //drawEllipseByCenter(ctx, this.center.x, this.center.y, this.radius, this.radius * 1.5);
+            ctx.ellipse(this.center.x, this.center.y, this.radius, this.secondradius, 0,  0, 2 * Math.PI);                           
+            
             ctx.stroke();
         }
     }
 
-function Planet(orbit, radius, time) {
+function Planet(orbit, radius, secondRadius, time) {    
     this.pos = new Point(0, 0);
     this.orbit = orbit;
     this.radius = radius;
+    this.secondradius = secondRadius || radius; 
     this.speed = Math.PI * 2 / (time * 1000);
     this.angle = ~~(Math.random() * 360);
 
@@ -239,7 +217,7 @@ function Planet(orbit, radius, time) {
             },
             {
                 imageSizesRange: { min: 280, max: 285 },
-                realSizesRange: { min: 1000000000, max: 1500000000 }   // сатурн
+                realSizesRange: { min: 1000000000, max: 1600000000 }   // сатурн
             },
             {
                 imageSizesRange: { min: 315, max: 320 },
@@ -280,8 +258,8 @@ function Planet(orbit, radius, time) {
         return res;
     }
 
-    this.realDistance = getOrbitRadius(orbit.radius);
-    this.orbit.radius = getOrbitRadius(orbit.radius);
+    this.realDistance = this.orbit.radius = getOrbitRadius(orbit.radius);
+    this.secondradius = this.orbit.secondradius = getOrbitRadius(orbit.secondradius);
 };
 
 Planet.prototype = Object.create(Base.prototype);
@@ -318,11 +296,11 @@ Planet.prototype.render =
         if (this.animate) {
             if (!this.parent) {
                 this.pos.x = this.orbit.center.x + this.orbit.radius * Math.cos(this.angle);
-                this.pos.y = this.orbit.center.y + this.orbit.radius * Math.sin(this.angle);
+                this.pos.y = this.orbit.center.y + this.orbit.secondradius * Math.sin(this.angle);
                 this.angle += this.speed * deltaTime;
             } else {
                 this.pos.x = this.parent.pos.x + this.orbit.radius * Math.cos(this.angle);
-                this.pos.y = this.parent.pos.y + this.orbit.radius * Math.sin(this.angle);
+                this.pos.y = this.parent.pos.y + this.orbit.secondradius * Math.sin(this.angle);
                 this.angle += this.speed * deltaTime * 10;
             }
             
