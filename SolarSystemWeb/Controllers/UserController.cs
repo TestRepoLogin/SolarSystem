@@ -15,8 +15,15 @@ namespace SolarSystemWeb.Controllers
     [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
-        private ApplicationUserManager UserManager => HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-        private ApplicationRoleManager RoleManager => HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+        private ApplicationUserManager UserManager
+        {
+            get { return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
+        }
+
+        private ApplicationRoleManager RoleManager
+        {
+            get { return HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>(); }
+        }
 
         public ActionResult Index()
         {
@@ -37,7 +44,7 @@ namespace SolarSystemWeb.Controllers
             }
             catch(Exception ex)
             {
-                Elmah.ErrorSignal.FromCurrentContext().Raise(new PermissionException($"При попытке получения ролей пользователя {user.UserName} возникла ошибка.", ex));
+                Elmah.ErrorSignal.FromCurrentContext().Raise(new PermissionException(String.Format("При попытке получения ролей пользователя {0} возникла ошибка.", user.UserName), ex));
                 return null;
             }
             

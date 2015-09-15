@@ -40,6 +40,7 @@
         <th>Масса</th>
         <th>Радиус</th>
         <th>Радиус орбиты</th>
+        <th>Малый радиус орбиты</th>
         <th>Период обращения</th>
         <th>Прод-ть суток</th>
         <th>Чей спутник</th>
@@ -61,6 +62,7 @@
                 </td>
                 <td>@item.Radius.ToStringWithDelimiters() км.</td>
                 <td>@(item.IsSun ? "=" : item.Distance.ToStringWithDelimiters()  + "км.")</td>
+                <td>@(item.IsSun ? "=" : item.SecondRadius != null ? item.SecondRadius.Value.ToStringWithDelimiters()  + "км." : "-")</td>
                 <td>@(item.IsSun ? "=" : @item.OrbitPeriodSpan.ToReadableString())</td>
                 <td>@item.SiderealPeriodSpan.ToReadableString()</td>
                 <td>@(item.IsSun ? "=" : item.OwnerName)</td>

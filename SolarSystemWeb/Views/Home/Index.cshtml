@@ -28,7 +28,7 @@
                         id: @item.Id,
                         name: '@item.Name',
                         radius: @item.Radius.ToString("F").Replace(',', '.'),
-                        secondRadius: @(item.SecondRadius?.ToString("F")?.Replace(',', '.') ?? "null"),
+                        secondRadius: @(item.SecondRadius != null ? item.SecondRadius.Value.ToString("F").Replace(',', '.') : "null"),
                         distance: @item.Distance.ToString("F").Replace(',', '.'),
                         isSun: @item.IsSun.ToString().ToLower(),
                         needShow: true,

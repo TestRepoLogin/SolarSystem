@@ -58,6 +58,9 @@ namespace SolarSystemWeb.Models.Application
         /// <summary>
         /// Списко разрешенных MIME-типов для загружаемых изображений
         /// </summary>
-        public string[] AllowedTypes => ConfigurationManager.AppSettings["AllowedTypes"].Split(';');
+        public string[] AllowedTypes
+        {
+            get { return ConfigurationManager.AppSettings["AllowedTypes"].Split(';'); }
+        }
     }
 }

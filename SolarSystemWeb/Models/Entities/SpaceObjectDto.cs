@@ -47,11 +47,27 @@ namespace SolarSystemWeb.Models.Entities
 
         public byte[] OrbitImage { get; set; }
 
-        public bool IsSun => Id > 0 && OwnerId == Id;
+        public bool IsSun
+        {
+            get { return Id > 0 && OwnerId == Id; }
+        }
 
-        public TimeSpan? OrbitPeriodSpan => OrbitPeriod == null ? (TimeSpan?)null : TimeSpan.FromSeconds(OrbitPeriod.Value);
+        public TimeSpan? OrbitPeriodSpan
+        {
+            get
+            {
+                return  OrbitPeriod == null ? (TimeSpan?)null : TimeSpan.FromSeconds(OrbitPeriod.Value);
+            }
+        }
 
-        public TimeSpan? SiderealPeriodSpan => SiderealPeriod == null ? (TimeSpan?)null : TimeSpan.FromSeconds(SiderealPeriod.Value);
+        public TimeSpan? SiderealPeriodSpan
+        {
+            get
+            {
+                return SiderealPeriod == null ? (TimeSpan?)null : TimeSpan.FromSeconds(SiderealPeriod.Value);
+            }
+        }
+            
 
     }    
 }

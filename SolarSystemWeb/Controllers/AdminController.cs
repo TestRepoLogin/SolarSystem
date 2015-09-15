@@ -25,7 +25,7 @@ namespace SolarSystemWeb.Controllers
         protected readonly ICrudRepository<SpaceObjectTypeDto, SpaceObjectType> TypesRepository;
 
         public async Task<ActionResult> Index(int? typeId)
-        {
+        {            
             ViewBag.UserName = HttpContext.User.Identity.Name;
 
             var typesTask = TypesRepository.GetAllAsync();
@@ -164,7 +164,7 @@ namespace SolarSystemWeb.Controllers
 
             if (file != null && file.ContentLength > ApplicationSettings.Instance.MaxImageSize)
             {
-                ModelState.AddModelError(key, $"Размер загружаемого изображения не должен превышать {ApplicationSettings.Instance.MaxImageSize} байт");
+                ModelState.AddModelError(key, String.Format("Размер загружаемого изображения не должен превышать {0} байт", ApplicationSettings.Instance.MaxImageSize));
             }
         }
 

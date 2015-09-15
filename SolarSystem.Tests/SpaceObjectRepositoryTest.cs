@@ -61,7 +61,8 @@ namespace SolarSystem.Tests
         [TestMethod]
         public async Task GetSingleTest()
         {
-            int? existingId = repository.GetAll().FirstOrDefault()?.Id;
+            var existing = repository.GetAll().FirstOrDefault();
+            int? existingId = existing != null ? (int?)existing.Id : null;
 
             if (!existingId.HasValue)
                 return;
@@ -95,8 +96,8 @@ namespace SolarSystem.Tests
         {
             int countOld = repository.Count;
             var first = repository.GetAll().FirstOrDefault();
-            int typeId = first?.TypeId ?? 1;
-            int ownerId = first?.Id ?? 1;
+            int typeId = first == null ? 1 : first.TypeId;
+            int ownerId = first == null ? 1 : first.Id;
             toAdd.TypeId = typeId;
             toAdd.OwnerId = ownerId;
 
@@ -123,27 +124,22 @@ namespace SolarSystem.Tests
         {
             int countOld = repository.GetAll().Count();
             var first = repository.GetAll().FirstOrDefault();
-            int typeId = first?.TypeId ?? 1;
-            int ownerId = first?.OwnerId ?? 1; 
+            int typeId = first == null ? 1 : first.TypeId;
+            int ownerId = first == null ? 1 : first.Id;
             toAdd.TypeId = typeId;
             toAdd.OwnerId = ownerId;
+             
+            await repository.AddAsync(toAdd);
 
-            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            {                
-                await repository.AddAsync(toAdd);
+            int countAfterAdding = repository.GetAll().Count();
+            Assert.IsTrue(countAfterAdding == countOld + 1);
 
-                int countAfterAdding = repository.GetAll().Count();
-                Assert.IsTrue(countAfterAdding == countOld + 1);
+            int lastId = repository.GetAll().Max(x => x.Id);
+            await repository.DeleteAsync(lastId);
 
-                int lastId = repository.GetAll().Max(x => x.Id);
-                await repository.DeleteAsync(lastId);
-
-                int countAfterDeleting = repository.GetAll().Count();
-                Assert.IsTrue(countAfterDeleting == countOld);
-
-                transaction.Complete();
-            }
-
+            int countAfterDeleting = repository.GetAll().Count();
+            Assert.IsTrue(countAfterDeleting == countOld);
+           
         }
     }
 }

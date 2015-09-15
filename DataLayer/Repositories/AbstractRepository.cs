@@ -106,7 +106,10 @@ namespace DataLayer.Repositories
             await Context.SaveChangesAsync();
         }
 
-        public int Count => Context.Set<TData>().Count();
+        public int Count
+        {
+            get { return Context.Set<TData>().Count(); }
+        }
 
         public void Dispose()
         {

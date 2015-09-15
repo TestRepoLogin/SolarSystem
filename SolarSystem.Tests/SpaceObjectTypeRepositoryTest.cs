@@ -50,7 +50,8 @@ namespace SolarSystem.Tests
         [TestMethod]
         public async Task GetSingleTest()
         {
-            int? existingId = repository.GetAll().FirstOrDefault()?.Id;
+            var existing = repository.GetAll().FirstOrDefault();
+            int? existingId = existing != null ? (int?)existing.Id : null;
 
             if (!existingId.HasValue)
                 return;
@@ -106,23 +107,17 @@ namespace SolarSystem.Tests
         public async Task AddDeleteAsyncTest()
         {
             int countOld = repository.Count;
+            
+            await repository.AddAsync(toAdd);
 
-            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            {                
-                await repository.AddAsync(toAdd);
+            int countAfterAdding = repository.Count;
+            Assert.IsTrue(countAfterAdding == countOld + 1);
 
-                int countAfterAdding = repository.Count;
-                Assert.IsTrue(countAfterAdding == countOld + 1);
+            int lastId = repository.GetAll().Max(x => x.Id);
+            await repository.DeleteAsync(lastId);
 
-                int lastId = repository.GetAll().Max(x => x.Id);
-                await repository.DeleteAsync(lastId);
-
-                int countAfterDeleting = repository.Count;
-                Assert.IsTrue(countAfterDeleting == countOld);
-
-                transaction.Complete();
-            }
-
+            int countAfterDeleting = repository.Count;
+            Assert.IsTrue(countAfterDeleting == countOld);                        
         }
     }
 }

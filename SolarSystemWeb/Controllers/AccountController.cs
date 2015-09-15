@@ -7,15 +7,28 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SolarSystemWeb.Models.Identity;
 using SolarSystemWeb.Models.ViewModels;
-using static System.String;
+using System;
 
 namespace SolarSystemWeb.Controllers
 {
     [AllowAnonymous]
     public class AccountController : Controller
     {
-        private ApplicationUserManager UserManager => HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
+        private ApplicationUserManager UserManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+        }
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
 
         public ActionResult Index()
         {
@@ -38,14 +51,13 @@ namespace SolarSystemWeb.Controllers
                 }
                 else
                 {
-                    ClaimsIdentity claim = await UserManager.CreateIdentityAsync(user,
-                        DefaultAuthenticationTypes.ApplicationCookie);
+                    ClaimsIdentity claim = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
                     AuthenticationManager.SignOut();
                     AuthenticationManager.SignIn(new AuthenticationProperties
                     {
                         IsPersistent = true
                     }, claim);
-                    if (IsNullOrEmpty(returnUrl))
+                    if (String.IsNullOrEmpty(returnUrl))
                         return RedirectToAction("Index", "Home");
 
                     return Redirect(returnUrl);

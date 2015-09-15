@@ -13,6 +13,9 @@ namespace SolarSystemWeb.Models.Entities
         [Required(ErrorMessage = "Нужно указать форму множественного числа")]
         public string Plural { get; set; }
 
-        public bool IsSun => Plural == null;
+        public bool IsSun
+        {
+            get { return Plural == null; }
+        }
     }
 }

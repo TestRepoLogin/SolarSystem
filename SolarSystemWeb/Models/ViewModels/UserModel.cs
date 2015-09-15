@@ -30,7 +30,7 @@ namespace SolarSystemWeb.Models.ViewModels
         {
             get
             {
-                return Roles?.Aggregate("", (current, role) => current + (role.Name + ", ")).TrimEnd(',', ' ') ?? "";
+                return Roles.Aggregate("", (current, role) => current + (role.Name + ", ")).TrimEnd(',', ' ') ?? "";
             }
         }
     }

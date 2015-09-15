@@ -13,16 +13,15 @@ namespace SolarSystemWeb.Models.Application
         {
             _container = container;
         }
-
         protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
         {
             try
             {
                 if (controllerType == null)
-                    throw new ArgumentNullException($"Parameter \"{nameof(controllerType)}\" is null");
+                    throw new ArgumentNullException("Parameter \"controllerType\" is null");
 
                 if (!typeof(IController).IsAssignableFrom(controllerType))
-                    throw new ArgumentException($"Type \"{nameof(controllerType)}\" is not controller");
+                    throw new ArgumentException(String.Format("Type \"{0}\" is not controller", controllerType.FullName.ToLower()));
 
                 return _container.Resolve(controllerType) as IController;
             }
@@ -34,9 +33,10 @@ namespace SolarSystemWeb.Models.Application
         }
 
         public override void ReleaseController(IController controller)
-        {            
+        {
             var disposable = controller as IDisposable;
-            disposable?.Dispose();
+            if (disposable != null)
+                disposable.Dispose();
         }
     }
 }

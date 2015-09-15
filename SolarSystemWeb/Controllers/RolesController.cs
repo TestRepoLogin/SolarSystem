@@ -12,7 +12,10 @@ namespace SolarSystemWeb.Controllers
     [Authorize(Roles = "Admin")]
     public class RolesController : Controller
     {
-        private ApplicationRoleManager RoleManager => HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+        private ApplicationRoleManager RoleManager
+        {
+            get { return HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>(); }
+        }
 
         public ActionResult Index()
         {
