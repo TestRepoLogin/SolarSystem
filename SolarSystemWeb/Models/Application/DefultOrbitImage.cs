@@ -2,6 +2,10 @@
 
 namespace SolarSystemWeb.Models.Application
 {
+    /// <summary>
+    /// Синглтон, позволяющий получать дефолтное изображение для планеты на схеме,
+    /// загружая это изображение из файла только один раз
+    /// </summary>
     public sealed class DefaultOrbitImage
     {
         private static volatile DefaultOrbitImage _instance;
